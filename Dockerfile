@@ -1,3 +1,4 @@
 FROM kyma/docker-nginx
-COPY dist/ /var/www
+ARG BUILDPATH
+COPY $BUILDPATH /var/www
 CMD 'nginx'
