@@ -44,9 +44,9 @@
                     <v-text-field v-model="username" prepend-icon="person" name="username" label="Username"></v-text-field>
                     <v-text-field v-model="email" prepend-icon="email" name="email" label="Email"></v-text-field>
                     <v-text-field v-model="password" prepend-icon="lock" name="password" label="Password" id="password" type="password" hint = "Pro tip: Use a password manager."
-                 min="14" :rules="[(v) => v.length >= 14 || 'Min 14 characters',(v) => v.length <= 100 || 'Max 100 characters']" :counter="100"></v-text-field>
+                 min="14" :rules="[(v) => v.length >= 6 || 'Min 6 characters',(v) => v.length <= 100 || 'Max 100 characters']" :counter="100"></v-text-field>
                     <v-text-field v-model="newPassword" prepend-icon="lock" name="new_password" label="New Password" id="new_password" type="password" hint = "Pro tip: Use a password manager."
-                 min="14" :rules="[(v) => v.length >= 14 || 'Min 14 characters',(v) => v.length <= 100 || 'Max 100 characters']" :counter="100"></v-text-field>
+                 min="14" :rules="[(v) => v.length >= 6 || 'Min 6 characters',(v) => v.length <= 100 || 'Max 100 characters']" :counter="100"></v-text-field>
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
