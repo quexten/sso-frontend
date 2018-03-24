@@ -11,7 +11,7 @@ env:
 script:
  - export TAG=`if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then echo "latest"; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi`
  - export REPO=quexten/sso-frontend
- - npm build
+ - npm run build
  - docker build -t $REPO:$TAG --build-arg BUILD_PATH=$TRAVIS_BUILD_DIR -f Dockerfile .
 after_success:
  - docker login -u $DOCKER_USER -p $DOCKER_PASS
