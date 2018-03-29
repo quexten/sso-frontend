@@ -10,10 +10,14 @@
 		"build": "node build/build.js"
 	},
 	"dependencies": {
+		"axios": "^0.18.0",
 		"run": "^1.4.0",
+		"scriptjs": "^2.5.8",
 		"vue": "^2.5.2",
+		"vue-authenticate": "^1.3.4",
+		"vue-axios": "^2.1.0",
 		"vue-cookie": "^1.1.4",
-		"vue-password-strength-meter": "^1.1.1",
+		"vue-google-auth": "github:Quexten/vue-google-auth",
 		"vue-router": "^3.0.1",
 		"vuetify": "^1.0.0",
 		"zxcvbn": "^4.4.2"

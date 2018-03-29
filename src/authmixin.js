@@ -1,3 +1,27 @@
+
+const $script = require('scriptjs')
+$script('//apis.google.com/js/client:platform.js', () => {
+  gapi.load('auth2', () => {
+    if (!gapi.auth2.getAuthInstance()) {
+      gapi.auth2.init({
+        clientId: '181667355169-tg4re6sr04pllaaon3gl9mkbtu5mklr0.apps.googleusercontent.com'
+      }).then((res) => {
+        console.log(res)
+      }, (err) => {
+        console.log('error', err)
+      })
+    } else {
+      console.log('No gauth instance')
+    }
+  })
+})
+$script('//connect.facebook.net/en_US/sdk.js', () => {
+  FB.init({
+    appId: '2051613578444454',
+    version: 'v2.10'
+  })
+})
+
 var baseDomain = 'http://localhost:3000'
 
 export default {
@@ -153,6 +177,20 @@ export default {
       if (body.status === 'error') {
         alert(body.message)
       }
+    },
+    authenticateFacebook: async function () {
+      FB.login(response => {
+        console.log(response)
+      }, {
+        scope: 'email'
+      })
+    },
+    authenticateGoogle: async function () {
+      const auth2 = gapi.auth2.getAuthInstance()
+      auth2.signIn().then((res) => {
+      }, e => {
+        console.log('error')
+      })
     }
   }
 }

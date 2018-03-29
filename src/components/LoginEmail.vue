@@ -1,26 +1,21 @@
 <template>
 <v-content>
-  <div style="text-align:center; padding-top:40px; padding-bottom: 40px">
-    <h1 style="font-size: x-large" class="headline mb-0">Sign in to Quexten SSO</h1>
+  <div style="text-align:center; padding-top:20px;">
+    <h1 style="font-size: x-large" class="headline mb-0">Enter Your Email</h1>
   </div>
+  <v-card-text>
+    <v-text-field v-model="email" prepend-icon="email" name="email" label="Email" type="email"></v-text-field>
+  </v-card-text>
   <v-card-actions>
-    <v-btn block class="white--text" color="email" @click.native="$router.push('login-email')">
-    <v-icon dark left>mail_outline</v-icon>
-    Sign In With Email
-    </v-btn>
+    <v-btn block color="primary"  @click.native="alert = true">Login</v-btn>
   </v-card-actions>
-  <v-card-actions>
-    <v-btn block class="white--text" color="password" @click.native="$router.push('login-password')">
-    <v-icon dark left>lock_open</v-icon>
-    Sign In With Password
-    </v-btn>
-  </v-card-actions>
-  <v-card-actions>
-    <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()">Sign In With Google</v-btn>
-  </v-card-actions>
-  <v-card-actions>
-    <v-btn block class="white--text" color="facebook" @click.native="authenticateFacebook()">Sign In With Facebook</v-btn>
-  </v-card-actions>
+
+  <v-alert
+    type="success"
+    :value="alert"
+    transition="scale-transition"
+  > Login Email Sent, Check Your Mail
+  </v-alert>
 </v-content>
 </template>
 
@@ -45,12 +40,8 @@ a {
   export default {
     data () {
       return {
-        alert: true,
-        username: '',
-        email: '',
-        password: '',
-        newPassword: '',
-        loggedIn: false
+        alert: false,
+        email: ''
       }
     },
     methods: {
@@ -76,10 +67,11 @@ a {
       requestPasswordReset: function (email) {
         var self = this
         self.forgotPassword(email)
-      },
-      test: function () {
-        this.authenticate('google')
       }
+    },
+    created: function () {
+      var self = this
+      self.checkUser(self.setLoggedIn)
     }
   }
 </script>
