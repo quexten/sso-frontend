@@ -43,31 +43,6 @@ a {
         alert: false,
         email: ''
       }
-    },
-    methods: {
-      setLoggedIn: function (value, user) {
-        this.loggedIn = value
-        if (value) {
-          this.username = user.username
-          this.email = user.email
-        }
-      },
-      setCookie: function (key, value) {
-        this.$cookie.set(key, value, {expires: '1M', domain: 'quexten.com'})
-      },
-      update: function (username, oldPassword, newPassword) {
-        var self = this
-        if (!(newPassword.length === 0)) {
-          self.changePassword(oldPassword, newPassword)
-        }
-        if (!(username.length === 0)) {
-          self.changeUsername(username)
-        }
-      },
-      requestPasswordReset: function (email) {
-        var self = this
-        self.forgotPassword(email)
-      }
     }
   }
 </script>
