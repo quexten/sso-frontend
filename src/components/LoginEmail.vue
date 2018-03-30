@@ -68,10 +68,6 @@ a {
         var self = this
         self.forgotPassword(email)
       }
-    },
-    created: function () {
-      var self = this
-      self.checkUser(self.setLoggedIn)
     }
   }
 </script>
