@@ -22,7 +22,7 @@ $script('//connect.facebook.net/en_US/sdk.js', () => {
   })
 })
 
-var baseDomain = 'http://localhost:3000'
+var baseDomain = 'https://api.sso.staging.quexten.com'
 
 export default {
   methods: {

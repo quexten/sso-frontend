@@ -76,9 +76,6 @@ a {
       requestPasswordReset: function (email) {
         var self = this
         self.forgotPassword(email)
-      },
-      test: function () {
-        this.authenticate('google')
       }
     }
   }
