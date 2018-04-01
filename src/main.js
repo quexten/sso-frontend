@@ -7,14 +7,15 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import mixin from './authmixin.js'
 import VueCookie from 'vue-cookie'
-
+import VueSVGCustomIcon from 'vue-svg-custom-icon'
+Vue.use(VueSVGCustomIcon, { basePath: '/assets' })
 Vue.use(Vuetify, {
   theme: {
     primary: '#ff5722',
     secondary: '#b0bec5',
-    accent: '#8c9eff',
+    accent: '#4885ed',
     error: '#b71c1c',
-    google: '#F44336',
+    google: '#4885ed',
     facebook: '#283593',
     email: '#7C4DFF',
     password: '03A9F4'

@@ -10,6 +10,8 @@ import LoginPassword from '@/components/LoginPassword'
 import LoginEmail from '@/components/LoginEmail'
 import LoginEmailConfirmation from '@/components/LoginEmailConfirmation'
 import GoogleResponse from '@/components/GoogleResponse'
+import Profile from '@/components/Profile'
+
 
 Vue.use(Router)
 
@@ -20,6 +22,11 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
     },
     {
       path: '/privacy',

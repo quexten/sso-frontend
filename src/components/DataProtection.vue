@@ -1,12 +1,4 @@
-<template>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-              <v-toolbar-title>Quexten-SSO</v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
+<template>    
               <v-content>
                 <v-card-text>
                 <p><strong>Datenschutzerklärung</strong></p><p><strong>Geltungsbereich</strong></p><p>Diese Datenschutzerklärung klärt Nutzer über die Art, den Umfang und Zwecke der Erhebung und Verwendung personenbezogener Daten durch den verantwortlichen Anbieter Bernd Schoolmann, Frankenstrasse 7 52070 Aachen, contact@quexten.com, 49 176 45719120 auf dieser Website (im folgenden “Angebot”) auf.<br />
@@ -25,10 +17,6 @@
                 </p><p></p>
                 </v-card-text>
               </v-content>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

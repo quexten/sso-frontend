@@ -19,6 +19,7 @@
 		"vue-cookie": "^1.1.4",
 		"vue-google-auth": "github:Quexten/vue-google-auth",
 		"vue-router": "^3.0.1",
+		"vue-svg-custom-icon": "^1.0.6",
 		"vuetify": "^1.0.0",
 		"zxcvbn": "^4.4.2"
 	},

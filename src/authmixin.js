@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 const $script = require('scriptjs')
 $script('//apis.google.com/js/client:platform.js', () => {
@@ -180,17 +181,71 @@ export default {
     },
     authenticateFacebook: async function () {
       FB.login(response => {
-        console.log(response)
+        fetch(baseDomain + '/auth/facebook/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            access_token: response.authResponse.accessToken
+          }),
+          credentials: 'include'
+        }).then( (test) => {
+          alert(JSON.stringify(test))
+        })
       }, {
         scope: 'email'
       })
     },
     authenticateGoogle: async function () {
       const auth2 = gapi.auth2.getAuthInstance()
-      auth2.signIn().then((res) => {
+      auth2.signIn().then((response) => {
+        fetch(baseDomain + '/auth/google/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id_token: response.Zi.id_token
+          }),
+          credentials: 'include'
+        }).then( (test) => {
+          alert(test)
+        })
       }, e => {
-        console.log('error')
+
       })
+    },
+    authenticateEmail: async function (email) {
+      const res = await fetch(baseDomain + '/auth/email/generate-login-token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email
+        }),
+        credentials: 'include'
+      })
+    },
+    confirmEmailToken: async function(userId, token) {
+      const res = await fetch(baseDomain + '/auth/email/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: userId,
+          token: token
+        }),
+        credentials: 'include'
+      })
+      const body = await res.json()
+      if (body.status === 'error') {
+        alert(body.message)
+      } else {
+        alert(body.message)
+      }
     }
   }
 }

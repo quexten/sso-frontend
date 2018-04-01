@@ -4,10 +4,10 @@
     <h1 style="font-size: x-large" class="headline mb-0">Enter Your Email To Login</h1>
   </div>
   <v-card-text>
-    <v-text-field v-model="email" prepend-icon="email" name="email" label="Email" type="email"></v-text-field>
+    <v-text-field color="accent" @change="checkValidity" v-model="email" prepend-icon="email" name="email" label="Email" type="email" :rules="[(v) => !checkValidity() || 'Enter valid email']"></v-text-field>
   </v-card-text>
   <v-card-actions>
-    <v-btn block color="primary"  @click.native="alert = true">Login</v-btn>
+    <v-btn block :disabled="isDisabled" color="accent"  @click.native="authenticateEmail(email); alert = true">Login</v-btn>
   </v-card-actions>
 
   <v-alert
@@ -41,7 +41,19 @@ a {
     data () {
       return {
         alert: false,
+        emailValid: true,
         email: ''
+      }
+    },
+    methods : {
+      checkValidity () {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return (this.email != null) && !re.test(String(this.email).toLowerCase());
+      }
+    },
+    computed: {
+      isDisabled() {
+        return this.checkValidity()
       }
     }
   }

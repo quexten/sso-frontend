@@ -1,7 +1,7 @@
 <template>
 <v-content>
   <div style="text-align:center; padding-top:20px;">
-    <h1 style="font-size: x-large" class="headline mb-0">Enter Your Email</h1>
+    <h1 style="font-size: x-large" class="headline mb-0">Logging you in!</h1>
   </div>
  </v-content>
 </template>
@@ -25,40 +25,8 @@ a {
 </style>
 <script>
   export default {
-    data () {
-      return {
-        alert: false,
-        email: ''
-      }
-    },
-    methods: {
-      setLoggedIn: function (value, user) {
-        this.loggedIn = value
-        if (value) {
-          this.username = user.username
-          this.email = user.email
-        }
-      },
-      setCookie: function (key, value) {
-        this.$cookie.set(key, value, {expires: '1M', domain: 'quexten.com'})
-      },
-      update: function (username, oldPassword, newPassword) {
-        var self = this
-        if (!(newPassword.length === 0)) {
-          self.changePassword(oldPassword, newPassword)
-        }
-        if (!(username.length === 0)) {
-          self.changeUsername(username)
-        }
-      },
-      requestPasswordReset: function (email) {
-        var self = this
-        self.forgotPassword(email)
-      }
-    },
     created: function () {
-      var self = this
-      self.checkUser(self.setLoggedIn)
+      this.confirmEmailToken(this.$route.query.userId, this.$route.query.token)
     }
   }
 </script>

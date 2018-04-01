@@ -1,31 +1,54 @@
 <template>
 <v-content>
-  <div style="text-align:center; padding-top:40px; padding-bottom: 40px">
-    <h1 style="font-size: x-large" class="headline mb-0">Sign in to Quexten SSO</h1>
-  </div>
+  <v-card-actions>
+    <v-spacer></v-spacer>
+  </v-card-actions>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+    </v-card-actions>
   <v-card-actions>
     <v-btn block class="white--text" color="email" @click.native="$router.push('login-email')">
-    <v-icon dark left>mail_outline</v-icon>
+    <v-icon dark left class="btnimgmail">mail_outline</v-icon>
     Sign In With Email
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="password" @click.native="$router.push('login-password')">
-    <v-icon dark left>lock_open</v-icon>
-    Sign In With Password
+    <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()">
+      <img class="btnimggoogle" height="44" width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
+      Sign In With Google
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()">Sign In With Google</v-btn>
-  </v-card-actions>
-  <v-card-actions>
-    <v-btn block class="white--text" color="facebook" @click.native="authenticateFacebook()">Sign In With Facebook</v-btn>
+    <v-btn block class="white--text" color="facebook" @click.native="authenticateFacebook()">
+      <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook.png" />
+      <div style="clear: left">
+         Sign in with facebook
+      </div>
+    </v-btn>
   </v-card-actions>
 </v-content>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.btnimgmail {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.btnimggoogle {
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.btnimgfacebook {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 h1, h2 {
   font-weight: normal;
 }
