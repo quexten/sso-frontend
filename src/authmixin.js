@@ -1,6 +1,11 @@
 /* eslint-disable */
-
 const $script = require('scriptjs')
+$script('//connect.facebook.net/en_US/sdk.js', () => {
+  FB.init({
+    appId: '2051613578444454',
+    version: 'v2.10'
+  })
+})
 $script('//apis.google.com/js/client:platform.js', () => {
   gapi.load('auth2', () => {
     if (!gapi.auth2.getAuthInstance()) {
@@ -16,182 +21,31 @@ $script('//apis.google.com/js/client:platform.js', () => {
     }
   })
 })
-$script('//connect.facebook.net/en_US/sdk.js', () => {
-  FB.init({
-    appId: '2051613578444454',
-    version: 'v2.10'
-  })
+var baseDomain = 'http://localhost:3000'
+const OothClient = require('ooth-client')
+const oothClient = new OothClient({
+  oothUrl: baseDomain + '/auth',
+  sandalone: true
 })
-
-var baseDomain = 'https://api.sso.staging.quexten.com'
 
 export default {
   methods: {
-    checkUser: async function (setLoggedIn) {
-      const res = await fetch(baseDomain + '/auth/status', {
-        method: 'GET',
-        credentials: 'include'
-      })
-      const body = await res.json()
-      setLoggedIn(body.user != null, body.user.local)
+    setOnUserChanged: async function (onUserChanged) {
+      this.onUserChanged = onUserChanged
     },
-    register: async function (email, password, setLoggedIn) {
-      const res = await fetch(baseDomain + '/auth/local/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          password
-        }),
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-        return
-      }
-      await this.loginWithEmailPassword(email, password, setLoggedIn)
-    },
-    changePassword: async function (oldPassword, newPassword) {
-      const res = await fetch(baseDomain + '/auth/local/change-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          password: oldPassword,
-          newPassword: newPassword
-        }),
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-      }
-    },
-    changeUsername: async function (username) {
-      const res = await fetch(baseDomain + '/auth/local/set-username', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: username
-        }),
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-      }
-    },
-    loginWithEmailPassword: async function (email, password, setLoggedIn) {
-      const res = await fetch(baseDomain + '/auth/local/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: email,
-          password: password
-        }),
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-        return
-      }
-      // Vue.set(this, 'user', body.user)
-      setLoggedIn(true)
-    },
-    logout: async function (setLoggedIn) {
-      const res = await fetch(baseDomain + '/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-        // return
-      }
-      // Vue.set(this, 'user', null)
-      setLoggedIn(false)
+    logout: async function () {
+      oothClient.logout()
     },
     status: async function () {
-      const res = await fetch(baseDomain + '/auth/status', {
-        method: 'GET',
-        credentials: 'include'
-      })
-      const body = await res.json()
-      console.log(body)
-    },
-    verifyEmail: async function (token, userId) {
-      const res = await fetch(baseDomain + '/auth/local/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          token: token,
-          userId: userId
-        }),
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-      }
-    },
-    forgotPassword: async function (username) {
-      const res = await fetch(baseDomain + '/auth/local/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: username
-        }),
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-      }
-    },
-    resetPassword: async function (token, userId, password) {
-      const res = await fetch(baseDomain + '/auth/local/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          userId: userId,
-          token: token,
-          newPassword: password
-        }),
-        credentials: 'include'
-      })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-      }
+      return oothClient.status()
     },
     authenticateFacebook: async function () {
+
       FB.login(response => {
-        fetch(baseDomain + '/auth/facebook/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            access_token: response.authResponse.accessToken
-          }),
-          credentials: 'include'
-        }).then( (test) => {
-          alert(JSON.stringify(test))
+        oothClient.authenticate('facebook', 'login', {
+          access_token: response.authResponse.accessToken
+        }).catch(e => {
+          alert(e.message)
         })
       }, {
         scope: 'email'
@@ -200,52 +54,45 @@ export default {
     authenticateGoogle: async function () {
       const auth2 = gapi.auth2.getAuthInstance()
       auth2.signIn().then((response) => {
-        fetch(baseDomain + '/auth/google/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id_token: response.Zi.id_token
-          }),
-          credentials: 'include'
-        }).then( (test) => {
-          alert(test)
+        oothClient.authenticate('google', 'login', {
+          id_token: response.Zi.id_token
+        }).catch(e => {
+          alert(e.message)
         })
       }, e => {
-
+        alert(e.message)
       })
     },
     authenticateEmail: async function (email) {
-      const res = await fetch(baseDomain + '/auth/email/generate-login-token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email
-        }),
-        credentials: 'include'
+      oothClient.authenticate('email', 'generate-login-token', {
+        email: email
+      }).catch(e => {
+        alert(e.message)
       })
     },
     confirmEmailToken: async function(userId, token) {
-      const res = await fetch(baseDomain + '/auth/email/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          userId: userId,
-          token: token
-        }),
-        credentials: 'include'
+      oothClient.authenticate('email', 'login', {
+        userId: userId,
+        token: token
+      }).catch(e => {
+        alert(e.message)
       })
-      const body = await res.json()
-      if (body.status === 'error') {
-        alert(body.message)
-      } else {
-        alert(body.message)
-      }
+    },
+    subscribeToUser: async function (onUser) {
+      oothClient.user().subscribe(user => {
+        onUser(user)
+      })
+    },
+    changeUsername: async function (username) {
+      oothClient.method('profile', 'update', {
+        username: username
+      })
     }
+  },
+  created: function () {
+    oothClient.start()
+    const subscription = oothClient.user().subscribe(user => {
+      this.user = user
+    })
   }
 }

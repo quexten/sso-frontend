@@ -1,25 +1,165 @@
 <template>
-            <v-content>
-                <v-card-text>
-                  <v-form>
-                    <v-text-field v-model="username" prepend-icon="person" name="username" label="Username"></v-text-field>
-                    <v-text-field v-model="email" prepend-icon="email" name="email" label="Email"></v-text-field>
-                    <v-text-field v-model="password" prepend-icon="lock" name="password" label="Password" id="password" type="password" hint = "Pro tip: Use a password manager."
-                 min="14" :rules="[(v) => v.length >= 6 || 'Min 6 characters',(v) => v.length <= 100 || 'Max 100 characters']" :counter="100"></v-text-field>
-                    <v-text-field v-model="newPassword" prepend-icon="lock" name="new_password" label="New Password" id="new_password" type="password" hint = "Pro tip: Use a password manager."
-                 min="14" :rules="[(v) => v.length >= 6 || 'Min 6 characters',(v) => v.length <= 100 || 'Max 100 characters']" :counter="100"></v-text-field>
-                  </v-form>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="primary"  @click.native="update(username, password, newPassword)"> Update</v-btn>
-                  <v-btn color="primary"  @click.native="logout(setLoggedIn)"> Logout</v-btn>
-                </v-card-actions>
-              </v-content>
+  <v-content>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+    </v-card-actions>
+    <v-card-actions>
+      <v-divider></v-divider>
+      <p>
+        <h4 class="grey--text">Profile</h4>
+      </p>
+      <v-divider></v-divider>
+    </v-card-actions>
+    <v-card-actions>
+      <v-select
+            label="Profile Icon"
+            :items="icons"
+            v-model="e11"
+            item-text="name"
+            item-value="name"
+            max-height="auto"
+            autocomplete
+          >
+            <template slot="selection" slot-scope="data">
+              <v-chip
+                @input="data.parent.selectItem(data.item)"
+                :selected="data.selected"
+                class="chip--select-multi"
+                :key="JSON.stringify(data.item)"
+              >
+                <v-avatar>
+                  <img :src="data.item.avatar">
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template slot="item" slot-scope="data">
+              <template v-if="typeof data.item !== 'object'">
+                <v-list-tile-content v-text="data.item"></v-list-tile-content>
+              </template>
+              <template v-else>
+                <v-list-tile-avatar>
+                  <img :src="data.item.avatar">
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                  <v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>
+                </v-list-tile-content>
+              </template>
+            </template>
+          </v-select>
+    </v-card-actions>
+    <v-card-actions>
+      <v-text-field
+        label="Username"
+        v-model="username"
+        counter
+        max="15"
+        v-on:change="changeUsername(username)"
+      ></v-text-field>
+    </v-card-actions>
+
+    <v-card-actions>
+      <v-divider></v-divider>
+      <p>
+        <h4 class="grey--text">Authentication</h4>
+      </p>
+      <v-divider>Test</v-divider>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn block class="white--text" color="email" @click.native="$router.push('/login-email')" :outline="signedInWithEmail">
+      <v-icon dark left class="btnimgmail">mail_outline</v-icon>
+        {{ signedInWithEmail ? 'Disconnect' : 'Add' }} Email
+        <div style="background-color: #7C4DFF; width: 35px; height: 35px; right: 0px; bottom: 0px; position: absolute;">
+          <v-avatar
+            :tile="false"
+            :size="30"
+            class="avatar-right"
+            v-if="signedInWithEmail">
+            <img class="avatar" :src="avatarEmail" alt="avatar">
+          </v-avatar>
+        </div>
+      </v-btn>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()" :outline="signedInWithGoogle">
+        <img class="btnimggoogle" :height="signedInWithGoogle ? 40 : 44" :width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
+        {{ signedInWithGoogle ? 'Disconnect' : 'Sign in with' }} Google
+        <div style="background-color: #4885ed; width: 35px; height: 35px; right: 0px; bottom: 0px; position: absolute;">
+          <v-avatar
+            :tile="false"
+            :size="30"
+            class="avatar-right"
+            v-if="signedInWithGoogle">
+            <img class="avatar" :src="avatarGoogle" alt="avatar">
+          </v-avatar>
+        </div>
+      </v-btn>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn block class="white--text" color="facebook" @click.native="authenticateFacebook()" :outline="signedInWithFacebook">
+        <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook_blue.png" v-if="signedInWithFacebook"/>
+        <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook.png" v-else/>
+        <div style="clear: left">
+        {{ signedInWithFacebook ? 'Disconnect' : 'Sign in with' }} Facebook
+        <div style="background-color: #283593; width: 35px; height: 35px; right: 0px; bottom: 0px; position: absolute;">
+          <v-avatar
+            :tile="false"
+            :size="30"
+            class="avatar-right"
+            v-if="signedInWithFacebook">
+            <img class="avatar" :src="avatarFacebook" alt="avatar">
+          </v-avatar>
+        </div>
+        </div>
+      </v-btn>
+    </v-card-actions>
+    <v-card-actions>
+      <v-divider></v-divider>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn block class="white--text" color="accent" @click.native="logout()" >
+        logout
+      </v-btn>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn block class="white--text" color="error" @click.native="signedInWithEmail=!signedInWithEmail" :outline="signedInWithEmail">
+        Delete
+      </v-btn>
+    </v-card-actions>
+  </v-content>
+
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.googleAvatarCard {
+  background-color: green;
+}
+.avatar-right {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  transform: translateY(-50%);
+}
+.btnimgmail {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.btnimggoogle {
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.btnimgfacebook {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 h1, h2 {
   font-weight: normal;
 }
@@ -36,39 +176,56 @@ a {
 }
 </style>
 <script>
+const md5 = require('js-md5');
+
   export default {
     data () {
+      let avatarEmail = ''
+      let avatarGoogle = ''
+      let avatarFacebook = ''
+
       return {
         username: '',
-        email: '',
-        password: '',
-        newPassword: '',
-        loggedIn: false
-      }
-    },
-    methods: {
-      setLoggedIn: function (value, user) {
-        this.loggedIn = value
-        if (value) {
-          this.username = user.username
-          this.email = user.email
-        }
-      },
-      setCookie: function (key, value) {
-        this.$cookie.set(key, value, {expires: '1M', domain: 'quexten.com'})
-      },
-      update: function (username, oldPassword, newPassword) {
-        var self = this
-        if (!(newPassword.length === 0)) {
-          self.changePassword(oldPassword, newPassword)
-        }
-        if (!(username.length === 0)) {
-          self.changeUsername(username)
-        }
+        signedIn: false,
+        wasSignedIn: false,
+        signedInWithGoogle : false,
+        signedInWithEmail: false,
+        signedInWithFacebook:false,
+        icons: [],
+        avatarEmail: '',
+        avatarGoogle: '',
+        avatarFacebook: ''
       }
     },
     created: function () {
-      this.checkUser(this.setLoggedIn)
+      this.subscribeToUser(user => {
+        this.signedInWithEmail = (this.user != null) && (this.user.email != null)
+        this.signedInWithGoogle = (this.user != null) && (this.user.google != null)
+        this.signedInWithFacebook = (this.user != null) && (this.user.facebook != null)
+        this.signedIn = this.signedInWithEmail || this.signedInWithGoogle || this.signedInWithFacebook
+        if (this.wasSignedIn && !this.signedIn) {
+          this.$router.push('/')
+        }
+        this.wasSignedIn = this.signedIn
+
+
+        this.username = this.user && this.user.profile && this.user.profile.username
+        this.icons = [{ header: 'Profile Icon' }]
+
+        const test = this.user
+        if (this.signedInWithEmail) {
+          this.avatarEmail = 'https://www.gravatar.com/avatar/' + md5(this.user.email.email.toLowerCase().trim())
+          this.icons.push({ name: 'Email', group: 'Via Gravatar', avatar: this.avatarEmail })
+        }
+        if (this.signedInWithGoogle) {
+          this.avatarGoogle = 'https://pikmail.herokuapp.com/' + this.user.google.email + '?size=200'
+          this.icons.push({ name: 'Google', avatar: this.avatarGoogle })
+        }
+        if (this.signedInWithFacebook) {
+          this.avatarFacebook = 'https://graph.facebook.com/' + this.user.facebook.id + '/picture?type=large'
+          this.icons.push({ name: 'Facebook', avatar: this.avatarFacebook })
+        }
+      })
     }
   }
 </script>

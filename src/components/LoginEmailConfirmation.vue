@@ -24,9 +24,18 @@ a {
 }
 </style>
 <script>
-  export default {
-    created: function () {
-      this.confirmEmailToken(this.$route.query.userId, this.$route.query.token)
+export default {
+  methods: {
+    alertUser: function (user) {
+      if (this.user)
+        this.$router.push('profile')
     }
+  },
+  created: function () {
+    this.subscribeToUser(user => {
+      this.alertUser(this.user)
+    })
+    this.confirmEmailToken(this.$route.query.userId, this.$route.query.token)
   }
+}
 </script>

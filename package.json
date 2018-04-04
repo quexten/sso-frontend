@@ -11,6 +11,8 @@
 	},
 	"dependencies": {
 		"axios": "^0.18.0",
+		"js-md5": "^0.7.3",
+		"ooth-client": "^1.2.1",
 		"run": "^1.4.0",
 		"scriptjs": "^2.5.8",
 		"vue": "^2.5.2",

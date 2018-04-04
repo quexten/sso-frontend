@@ -13,8 +13,8 @@ Vue.use(Vuetify, {
   theme: {
     primary: '#ff5722',
     secondary: '#b0bec5',
-    accent: '#4885ed',
-    error: '#b71c1c',
+    accent: '#2196F3',
+    error: '#ff0000',
     google: '#4885ed',
     facebook: '#283593',
     email: '#7C4DFF',

@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
     </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="email" @click.native="$router.push('login-email')">
+    <v-btn block class="white--text" color="email" @click.native="$router.push('/login-email')">
     <v-icon dark left class="btnimgmail">mail_outline</v-icon>
     Sign In With Email
     </v-btn>
@@ -99,7 +99,16 @@ a {
       requestPasswordReset: function (email) {
         var self = this
         self.forgotPassword(email)
+      },
+      alertUser: function (user) {
+        if (this.user)
+        this.$router.push('profile')
       }
+    },
+    created: function () {
+      this.subscribeToUser(user => {
+        this.alertUser(this.user)
+      })
     }
   }
 </script>
