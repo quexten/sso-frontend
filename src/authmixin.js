@@ -21,7 +21,7 @@ $script('//apis.google.com/js/client:platform.js', () => {
     }
   })
 })
-var baseDomain = 'https://sso.staging.quexten.com'
+var baseDomain = 'https://api.sso.staging.quexten.com'
 const OothClient = require('ooth-client')
 const oothClient = new OothClient({
   oothUrl: baseDomain + '/auth',
