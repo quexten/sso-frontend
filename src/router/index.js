@@ -29,7 +29,7 @@ export default new Router({
       component: Profile
     },
     {
-      path: '/privacy',
+      path: 'privacy',
       name: 'Privacy',
       component: Privacy
     },
