@@ -16,7 +16,7 @@ import Profile from '@/components/Profile'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/',
@@ -29,7 +29,7 @@ export default new Router({
       component: Profile
     },
     {
-      path: 'privacy',
+      path: '/privacy',
       name: 'Privacy',
       component: Privacy
     },
