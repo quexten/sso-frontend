@@ -87,6 +87,11 @@ export default {
       oothClient.method('profile', 'update', {
         username: username
       })
+    },
+    changeAvatar: async function (avatar) {
+      oothClient.method('profile', 'update', {
+        avatar: avatar
+      })
     }
   },
   created: function () {

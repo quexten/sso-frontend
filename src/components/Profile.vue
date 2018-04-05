@@ -14,11 +14,13 @@
       <v-select
             label="Profile Icon"
             :items="icons"
-            v-model="e11"
+            v-model="avatar"
             item-text="name"
             item-value="name"
             max-height="auto"
             autocomplete
+            v-on:input="changeAvatar(avatar)"
+            color="accent"
           >
             <template slot="selection" slot-scope="data">
               <v-chip
@@ -56,6 +58,7 @@
         counter
         max="15"
         v-on:change="changeUsername(username)"
+        color="accent"
       ></v-text-field>
     </v-card-actions>
 
@@ -67,49 +70,55 @@
       <v-divider>Test</v-divider>
     </v-card-actions>
     <v-card-actions>
-      <v-btn block class="white--text" color="email" @click.native="$router.push('/login-email')" :outline="signedInWithEmail">
+      <v-btn block class="white--text" color="email" @click.native="clickEmailButton()" :outline="signedInWithEmail">
       <v-icon dark left class="btnimgmail">mail_outline</v-icon>
-        {{ signedInWithEmail ? 'Disconnect' : 'Add' }} Email
+        {{ signedInWithEmail ? 'Connected' : 'Add' }} Email
         <div style="background-color: #7C4DFF; width: 35px; height: 35px; right: 0px; bottom: 0px; position: absolute;">
-          <v-avatar
-            :tile="false"
-            :size="30"
-            class="avatar-right"
-            v-if="signedInWithEmail">
-            <img class="avatar" :src="avatarEmail" alt="avatar">
-          </v-avatar>
+          <v-tooltip right class="avatar-right" v-if="signedInWithEmail">
+            <v-avatar
+              :tile="false"
+              :size="30"
+              slot="activator">
+              <img class="avatar" :src="avatarEmail" alt="avatar">
+            </v-avatar>
+            <span>{{ this.user.email.email }}</span>
+          </v-tooltip>
         </div>
       </v-btn>
     </v-card-actions>
     <v-card-actions>
-      <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()" :outline="signedInWithGoogle">
+      <v-btn block class="white--text" color="google" @click.native="clickGoogleButton()" :outline="signedInWithGoogle">
         <img class="btnimggoogle" :height="signedInWithGoogle ? 40 : 44" :width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
-        {{ signedInWithGoogle ? 'Disconnect' : 'Sign in with' }} Google
+        {{ signedInWithGoogle ? 'Connected' : 'Sign in with' }} Google
         <div style="background-color: #4885ed; width: 35px; height: 35px; right: 0px; bottom: 0px; position: absolute;">
-          <v-avatar
-            :tile="false"
-            :size="30"
-            class="avatar-right"
-            v-if="signedInWithGoogle">
-            <img class="avatar" :src="avatarGoogle" alt="avatar">
-          </v-avatar>
+          <v-tooltip right class="avatar-right" v-if="signedInWithGoogle">
+            <v-avatar
+              :tile="false"
+              :size="30"
+              slot="activator">
+              <img class="avatar" :src="avatarGoogle" alt="avatar">
+            </v-avatar>
+            <span>{{ this.user.google.email }}</span>
+          </v-tooltip>
         </div>
       </v-btn>
     </v-card-actions>
     <v-card-actions>
-      <v-btn block class="white--text" color="facebook" @click.native="authenticateFacebook()" :outline="signedInWithFacebook">
+      <v-btn block class="white--text" color="facebook" @click.native="clickFacebookButton()" :outline="signedInWithFacebook">
         <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook_blue.png" v-if="signedInWithFacebook"/>
         <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook.png" v-else/>
         <div style="clear: left">
-        {{ signedInWithFacebook ? 'Disconnect' : 'Sign in with' }} Facebook
+        {{ signedInWithFacebook ? 'Connected' : 'Sign in with' }} Facebook
         <div style="background-color: #283593; width: 35px; height: 35px; right: 0px; bottom: 0px; position: absolute;">
-          <v-avatar
-            :tile="false"
-            :size="30"
-            class="avatar-right"
-            v-if="signedInWithFacebook">
-            <img class="avatar" :src="avatarFacebook" alt="avatar">
-          </v-avatar>
+          <v-tooltip right class="avatar-right" v-if="signedInWithFacebook">
+            <v-avatar
+              :tile="false"
+              :size="30"
+              slot="activator">
+              <img class="avatar" :src="avatarFacebook" alt="avatar">
+            </v-avatar>
+            <span>{{ this.user.facebook.id }}</span>
+          </v-tooltip>
         </div>
         </div>
       </v-btn>
@@ -123,7 +132,7 @@
       </v-btn>
     </v-card-actions>
     <v-card-actions>
-      <v-btn block class="white--text" color="error" @click.native="signedInWithEmail=!signedInWithEmail" :outline="signedInWithEmail">
+      <v-btn block class="white--text" color="error" disabled>
         Delete
       </v-btn>
     </v-card-actions>
@@ -185,6 +194,7 @@ const md5 = require('js-md5');
       let avatarFacebook = ''
 
       return {
+        avatar: 'Email',
         username: '',
         signedIn: false,
         wasSignedIn: false,
@@ -195,6 +205,20 @@ const md5 = require('js-md5');
         avatarEmail: '',
         avatarGoogle: '',
         avatarFacebook: ''
+      }
+    },
+    methods: {
+      clickEmailButton: function () {
+        if (!('email' in this.user))
+          this.$router.push('/login-email')
+      },
+      clickGoogleButton: function () {
+        if (!('google' in this.user))
+          authenticateGoogle()
+      },
+      clickFacebookButton: function () {
+        if (!('facebook') in this.user)
+          authenticateFacebook()
       }
     },
     created: function () {
@@ -224,6 +248,20 @@ const md5 = require('js-md5');
         if (this.signedInWithFacebook) {
           this.avatarFacebook = 'https://graph.facebook.com/' + this.user.facebook.id + '/picture?type=large'
           this.icons.push({ name: 'Facebook', avatar: this.avatarFacebook })
+        }
+
+        if (this.user != null) {
+          if ('profile' in this.user)
+            this.avatar = this.user.profile.avatar
+          else if ('avatar' in this) {
+            if (this.user.email) {
+              this.avatar = 'Email'
+            } else if (this.user.google) {
+              this.avatar = 'Google'
+            } else if (this.user.facebook) {
+              this.avatar = 'Facebook'
+            }
+          }
         }
       })
     }
