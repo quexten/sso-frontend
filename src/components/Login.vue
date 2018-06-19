@@ -13,6 +13,14 @@
     </v-btn>
   </v-card-actions>
   <v-card-actions>
+    <v-btn block class="white--text" color="error" @click.native="$router.push('/test')">
+      <v-icon dark left class="btnimgmail">mail_outline</v-icon>
+      Sign In With TEST
+    </v-btn>
+  </v-card-actions>
+
+
+  <v-card-actions>
     <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()">
       <img class="btnimggoogle" height="44" width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
       Sign In With Google
@@ -101,8 +109,9 @@ a {
         self.forgotPassword(email)
       },
       alertUser: function (user) {
-        if (this.user)
-        this.$router.push('profile')
+        if (this.user) {
+          this.$router.push('profile')
+        }
       }
     },
     created: function () {

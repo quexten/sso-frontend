@@ -27,8 +27,9 @@ a {
 export default {
   methods: {
     alertUser: function (user) {
-      if (this.user != null && this.user.email)
+      if (this.user != null && this.user.email) {
         this.$router.push('profile')
+      }
     }
   },
   created: function () {

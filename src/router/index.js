@@ -2,13 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '@/components/Login'
-import Privacy from '@/components/Privacy'
-import DataProtection from '@/components/DataProtection'
 import LoginEmail from '@/components/LoginEmail'
 import LoginEmailConfirmation from '@/components/LoginEmailConfirmation'
 import GoogleResponse from '@/components/GoogleResponse'
 import Profile from '@/components/Profile'
-
+import LoginTest from '@/components/LoginTest'
+import SecondFactor from '@/components/SecondFactor'
 
 Vue.use(Router)
 
@@ -26,16 +25,6 @@ export default new Router({
       component: Profile
     },
     {
-      path: '/privacy',
-      name: 'Privacy',
-      component: Privacy
-    },
-    {
-      path: '/data-protection',
-      name: 'DataProtection',
-      component: DataProtection
-    },
-    {
       path: '/login-email',
       name: 'LoginEmail',
       component: LoginEmail
@@ -49,6 +38,16 @@ export default new Router({
       path: '/login-email-confirmation',
       name: 'LoginEmailConfirmation',
       component: LoginEmailConfirmation
+    },
+    {
+      path: '/test',
+      name: 'LoginTest',
+      component: LoginTest
+    },
+    {
+      path: '/secondfactor',
+      name: 'SecondFactor',
+      component: SecondFactor
     }
   ]
 })

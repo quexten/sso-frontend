@@ -6,7 +6,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-              <v-toolbar-title>Profile</v-toolbar-title>
+              <v-toolbar-title>{{this.$router.history.current.name}}</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <router-view/>

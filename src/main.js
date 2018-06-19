@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import mixin from './authmixin.js'
+import mixin from './sso-api.js'
 import VueCookie from 'vue-cookie'
 import VueSVGCustomIcon from 'vue-svg-custom-icon'
 Vue.use(VueSVGCustomIcon, { basePath: '/assets' })
@@ -17,13 +17,13 @@ Vue.use(Vuetify, {
     error: '#ff0000',
     google: '#4885ed',
     facebook: '#283593',
-    email: '#7C4DFF',
-    password: '03A9F4'
+    email: '#7C4DFF'
   }
 })
 
 Vue.config.productionTip = false
 
+Vue.use(router)
 Vue.mixin(mixin)
 Vue.use(VueCookie)
 

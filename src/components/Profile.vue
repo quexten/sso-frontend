@@ -1,5 +1,19 @@
 <template>
   <v-content>
+    <v-dialog v-model="showAuditLog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          Audit Log
+        </v-card-title>
+        <v-container style="height: 500px" class="scroll-y">
+          <light-timeline :items='items'></light-timeline>
+        </v-container>
+        <v-card-actions>
+          <v-btn color="primary" flat @click.stop="showAuditLog=false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-card-actions>
       <v-spacer></v-spacer>
     </v-card-actions>
@@ -124,6 +138,11 @@
       </v-btn>
     </v-card-actions>
     <v-card-actions>
+      <v-btn block class="white--text" color="accent" @click.native="showAuditLog = true" >
+        open audit log
+      </v-btn>
+    </v-card-actions>
+    <v-card-actions>
       <v-divider></v-divider>
     </v-card-actions>
     <v-card-actions>
@@ -185,85 +204,106 @@ a {
 }
 </style>
 <script>
-const md5 = require('js-md5');
+import LightTimeline from 'vue-light-timeline'
 
-  export default {
-    data () {
-      let avatarEmail = ''
-      let avatarGoogle = ''
-      let avatarFacebook = ''
+const md5 = require('js-md5')
 
-      return {
-        avatar: 'Email',
-        username: '',
-        signedIn: false,
-        wasSignedIn: false,
-        signedInWithGoogle : false,
-        signedInWithEmail: false,
-        signedInWithFacebook:false,
-        icons: [],
-        avatarEmail: '',
-        avatarGoogle: '',
-        avatarFacebook: ''
+export default {
+  data () {
+    return {
+      avatar: 'Email',
+      username: '',
+      signedIn: false,
+      wasSignedIn: false,
+      signedInWithGoogle: false,
+      signedInWithEmail: false,
+      signedInWithFacebook: false,
+      icons: [],
+      avatarEmail: '',
+      avatarGoogle: '',
+      avatarFacebook: '',
+      showAuditLog: true,
+      items: [
+        {
+          tag: '2018-01-12',
+          content: 'hallo'
+        },
+        {
+          tag: '2018-01-13',
+          color: '#dcdcdc',
+          type: 'circle',
+          content: 'world'
+        },
+        {
+          type: 'star',
+          tag: '2018-01-14',
+          content: '=v ='
+        }
+      ]
+    }
+  },
+  methods: {
+    clickEmailButton: function () {
+      if (!('email' in this.user)) {
+        this.$router.push('/login-email')
       }
     },
-    methods: {
-      clickEmailButton: function () {
-        if (!('email' in this.user))
-          this.$router.push('/login-email')
-      },
-      clickGoogleButton: function () {
-        if (!('google' in this.user))
-          authenticateGoogle()
-      },
-      clickFacebookButton: function () {
-        if (!('facebook') in this.user)
-          authenticateFacebook()
+    clickGoogleButton: function () {
+      if (!('google' in this.user)) {
+        // eslint-disable-next-line
+        authenticateGoogle()
       }
     },
-    created: function () {
-      this.subscribeToUser(user => {
-        this.signedInWithEmail = (this.user != null) && (this.user.email != null)
-        this.signedInWithGoogle = (this.user != null) && (this.user.google != null)
-        this.signedInWithFacebook = (this.user != null) && (this.user.facebook != null)
-        this.signedIn = this.signedInWithEmail || this.signedInWithGoogle || this.signedInWithFacebook
-        if (this.wasSignedIn && !this.signedIn) {
-          this.$router.push('/')
-        }
-        this.wasSignedIn = this.signedIn
+    clickFacebookButton: function () {
+      if (!(('facebook') in this.user)) {
+        // eslint-disable-next-line
+        authenticateFacebook()
+      }
+    }
+  },
+  components: {
+    LightTimeline
+  },
+  created: function () {
+    this.subscribeToUser(user => {
+      this.signedInWithEmail = (this.user != null) && (this.user.email != null)
+      this.signedInWithGoogle = (this.user != null) && (this.user.google != null)
+      this.signedInWithFacebook = (this.user != null) && (this.user.facebook != null)
+      this.signedIn = this.signedInWithEmail || this.signedInWithGoogle || this.signedInWithFacebook
+      if (this.wasSignedIn && !this.signedIn) {
+        this.$router.push('/')
+      }
+      this.wasSignedIn = this.signedIn
+      this.username = this.user && this.user.profile && this.user.profile.username
+      this.icons = [{ header: 'Profile Icon' }]
 
+      if (this.signedInWithEmail) {
+        this.avatarEmail = 'https://www.gravatar.com/avatar/' + md5(this.user.email.email.toLowerCase().trim())
+        this.icons.push({ name: 'Email', group: 'Via Gravatar', avatar: this.avatarEmail })
+      }
+      if (this.signedInWithGoogle) {
+        this.avatarGoogle = 'https://pikmail.herokuapp.com/' + this.user.google.email + '?size=200'
+        this.icons.push({ name: 'Google', avatar: this.avatarGoogle })
+      }
+      if (this.signedInWithFacebook) {
+        this.avatarFacebook = 'https://graph.facebook.com/' + this.user.facebook.id + '/picture?type=large'
+        this.icons.push({ name: 'Facebook', avatar: this.avatarFacebook })
+      }
 
-        this.username = this.user && this.user.profile && this.user.profile.username
-        this.icons = [{ header: 'Profile Icon' }]
-
-        const test = this.user
-        if (this.signedInWithEmail) {
-          this.avatarEmail = 'https://www.gravatar.com/avatar/' + md5(this.user.email.email.toLowerCase().trim())
-          this.icons.push({ name: 'Email', group: 'Via Gravatar', avatar: this.avatarEmail })
-        }
-        if (this.signedInWithGoogle) {
-          this.avatarGoogle = 'https://pikmail.herokuapp.com/' + this.user.google.email + '?size=200'
-          this.icons.push({ name: 'Google', avatar: this.avatarGoogle })
-        }
-        if (this.signedInWithFacebook) {
-          this.avatarFacebook = 'https://graph.facebook.com/' + this.user.facebook.id + '/picture?type=large'
-          this.icons.push({ name: 'Facebook', avatar: this.avatarFacebook })
-        }
-
-        if (this.user != null) {
-          if ('profile' in this.user)
-            this.avatar = this.user.profile.avatar
-          else if ('avatar' in this) {
-            if (this.user.email) {
-              this.avatar = 'Email'
-            } else if (this.user.google) {
-              this.avatar = 'Google'
-            } else if (this.user.facebook) {
-              this.avatar = 'Facebook'
-            }
+      if (this.user != null) {
+        if ('profile' in this.user) {
+          this.avatar = this.user.profile.avatar
+        } else if ('avatar' in this) {
+          if (this.user.email) {
+            this.avatar = 'Email'
+          } else if (this.user.google) {
+            this.avatar = 'Google'
+          } else if (this.user.facebook) {
+            this.avatar = 'Facebook'
           }
         }
-      })
-    }
+      }
+    })
   }
+}
 </script>
