@@ -17,7 +17,8 @@ Vue.use(Vuetify, {
     error: '#ff0000',
     google: '#4885ed',
     facebook: '#283593',
-    email: '#7C4DFF'
+    email: '#7C4DFF',
+    lightgrey: '#dadada'
   }
 })
 

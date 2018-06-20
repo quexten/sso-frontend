@@ -8,6 +8,8 @@ import GoogleResponse from '@/components/GoogleResponse'
 import Profile from '@/components/Profile'
 import LoginTest from '@/components/LoginTest'
 import SecondFactor from '@/components/SecondFactor'
+import TotpSetup from '@/components/TotpSetup'
+import BackupCodesSetup from '@/components/BackupCodesSetup'
 
 Vue.use(Router)
 
@@ -48,6 +50,16 @@ export default new Router({
       path: '/secondfactor',
       name: 'SecondFactor',
       component: SecondFactor
+    },
+    {
+      path: '/totpsetup',
+      name: 'Totp',
+      component: TotpSetup
+    },
+    {
+      path: '/backupcodessetup',
+      name: 'Backup-codes',
+      component: BackupCodesSetup
     }
   ]
 })
