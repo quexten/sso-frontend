@@ -23,7 +23,7 @@ export default {
         })
     },
     secondFactorBackupCode: (code) => {
-      axios.get(baseUrl + '/authenticate/backup-codes')
+      axios.get(baseUrl + '/authenticate/backup-codes?code=' + code)
     },
     getAuditLog: function (id, err, success) {
       axios.get(baseUrl + '/users/' + id + '/audit')
