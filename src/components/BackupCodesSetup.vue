@@ -16,10 +16,8 @@
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary">
+        <v-icon left dark>get_app</v-icon>
         Download
-      </v-btn>
-      <v-btn color="primary">
-        Continue
       </v-btn>
     </v-card-actions>
   </v-content>

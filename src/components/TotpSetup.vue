@@ -20,11 +20,6 @@
           required
       ></v-text-field>
     </v-card-actions>
-    <v-card-actions>
-      <v-btn block color="primary" @click.native="createTotp(data => { setQr(data) })">
-        Continue
-      </v-btn>
-    </v-card-actions>
   </v-content>
 </template>
 

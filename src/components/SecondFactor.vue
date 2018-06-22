@@ -1,5 +1,50 @@
 <template>
   <v-container>
+
+    <v-dialog v-model="backupCodes" persistent max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Backup Codes</span>
+        </v-card-title>
+        <v-card-text>
+          <backup-codes></backup-codes>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="backupCodes = false">continue</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="totp" persistent max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Mobile Authenticator</span>
+        </v-card-title>
+        <v-card-text>
+          <totp-setup></totp-setup>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click.native="totp = false">continue</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="u2f" persistent max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">U2F Setup</span>
+        </v-card-title>
+        <v-card-text>
+          <u2-f-setup></u2-f-setup>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click.native="u2f = false">continue</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-card-title>
       <v-divider></v-divider>
       <h4 class="grey--text">2-Factor</h4>
@@ -25,11 +70,23 @@
           Add
         </v-btn>
         <v-list>
-          <v-list-tile v-for="(item, i) in options" :key="i" @click="">
+          <v-list-tile @click="backupCodes = true">
             <v-avatar size="30" tile>
-              <img :src="item.avatar">
+              <img src='https://quexten.com/U2F.svg'>
             </v-avatar>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title>Backup Codes</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile @click="totp = true">
+            <v-avatar size="30" tile>
+              <img src='https://quexten.com/Totp.svg'>
+            </v-avatar>
+            <v-list-tile-title>Mobile Authenticator</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile @click="u2f = true">
+            <v-avatar size="30" tile>
+              <img src='https://quexten.com/U2F.svg'>
+            </v-avatar>
+            <v-list-tile-title>U2F Security Token</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -39,17 +96,16 @@
 </template>
 
 <script>
+  import BackupCodes from '@/components/BackupCodesSetup'
+  import TotpSetup from '@/components/TotpSetup'
+  import U2FSetup from '@/components/U2FSetup'
+
   export default {
-    name: 'TotpSetup',
     data () {
       return {
-        test: '123\ntest',
-        codes: ['aaaa-aaaa-aaaaa', 'bbbb-bbbb-bbbb', 'ccccc-cccc-cccc'],
-        options: [
-          { active: true, title: 'Backup-Codes' },
-          { active: true, title: 'Mobile Authenticator', avatar: 'https://quexten.com/Totp.svg' },
-          { title: 'U2F Token', avatar: 'https://quexten.com/U2F.svg' }
-        ],
+        backupCodes: false,
+        totp: false,
+        u2f: false,
         items: [
           { active: true, title: 'Backup-Codes' },
           { active: true, title: 'Mobile Authenticator', avatar: 'https://quexten.com/Totp.svg' },
@@ -57,6 +113,11 @@
           { title: 'U2F Security Token', avatar: 'https://quexten.com/U2F.svg' }
         ]
       }
+    },
+    components: {
+      BackupCodes,
+      TotpSetup,
+      U2FSetup
     }
   }
 </script>

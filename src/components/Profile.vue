@@ -15,7 +15,7 @@
             max-height="auto"
             autocomplete
             v-on:input="changeAvatar(avatar)"
-            color="accent"
+            color="primary"
           >
             <template slot="selection" slot-scope="data">
               <v-chip
@@ -53,8 +53,14 @@
         counter
         max="15"
         v-on:change="changeUsername(username)"
-        color="accent"
+        color="primary"
       ></v-text-field>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn block color="primary">Logout</v-btn>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn block outline color="error">Delete</v-btn>
     </v-card-actions>
 
   </v-content>

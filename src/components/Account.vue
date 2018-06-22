@@ -4,8 +4,8 @@
         id="navigation"
         permanent
         dark
-        value="false"
         width="300"
+        :height="450"
       >
         <v-list>
           <v-list-tile
