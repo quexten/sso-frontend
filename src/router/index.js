@@ -7,9 +7,10 @@ import LoginEmailConfirmation from '@/components/LoginEmailConfirmation'
 import GoogleResponse from '@/components/GoogleResponse'
 import Profile from '@/components/Profile'
 import LoginTest from '@/components/LoginTest'
-import SecondFactor from '@/components/SecondFactor'
+import SecondFactorSignIn from '@/components/SecondFactorSignIn'
 import TotpSetup from '@/components/TotpSetup'
 import BackupCodesSetup from '@/components/BackupCodesSetup'
+import Account from '@/components/Account'
 
 Vue.use(Router)
 
@@ -47,9 +48,9 @@ export default new Router({
       component: LoginTest
     },
     {
-      path: '/secondfactor',
-      name: 'SecondFactor',
-      component: SecondFactor
+      path: '/secondfactorsignin',
+      name: 'SecondFactorSignIn',
+      component: SecondFactorSignIn
     },
     {
       path: '/totpsetup',
@@ -60,6 +61,11 @@ export default new Router({
       path: '/backupcodessetup',
       name: 'Backup-codes',
       component: BackupCodesSetup
+    },
+    {
+      path: '/account',
+      name: 'Account',
+      component: Account
     }
   ]
 })

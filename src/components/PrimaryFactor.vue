@@ -1,11 +1,8 @@
 <template>
-  <v-container>
-    <v-card-title>
-      <v-divider></v-divider>
-      <h4 class="grey--text">2-Factor</h4>
-      <v-divider></v-divider>
-    </v-card-title>
-      <v-list>
+  <v-content>
+    <v-card-text>
+      <v-list subheader>
+        <v-subheader>Authentication Services</v-subheader>
         <v-list-tile v-for="item in items" :key="item.title" avatar @click="">
           <v-list-tile-avatar tile>
             <img :src="item.avatar">
@@ -18,6 +15,7 @@
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
+    </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-menu bottom offset-y>
@@ -35,7 +33,7 @@
       </v-menu>
 
     </v-card-actions>
-  </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -46,15 +44,14 @@
         test: '123\ntest',
         codes: ['aaaa-aaaa-aaaaa', 'bbbb-bbbb-bbbb', 'ccccc-cccc-cccc'],
         options: [
-          { active: true, title: 'Backup-Codes' },
-          { active: true, title: 'Mobile Authenticator', avatar: 'https://quexten.com/Totp.svg' },
-          { title: 'U2F Token', avatar: 'https://quexten.com/U2F.svg' }
+          { active: true, title: 'Email', avatar: 'https://quexten.com/Totp.svg' },
+          { title: 'Facebook', avatar: 'https://raw.githubusercontent.com/Quexten/sso-frontend/master/src/assets/btn_facebook_blue.png' },
+          { title: 'Google', avatar: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' }
         ],
         items: [
-          { active: true, title: 'Backup-Codes' },
-          { active: true, title: 'Mobile Authenticator', avatar: 'https://quexten.com/Totp.svg' },
-          { title: 'U2F Security Token', avatar: 'https://quexten.com/U2F.svg' },
-          { title: 'U2F Security Token', avatar: 'https://quexten.com/U2F.svg' }
+          { active: true, title: 'Email', avatar: 'https://quexten.com/Totp.svg' },
+          { title: 'Facebook', avatar: 'https://quexten.com/U2F.svg' },
+          { title: 'Google', avatar: 'https://quexten.com/U2F.svg' }
         ]
       }
     }

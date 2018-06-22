@@ -22,6 +22,12 @@ export default {
           }
         })
     },
+    createTotp: (callback) => {
+      axios.get(baseUrl + '/authenticate/totp/create')
+        .then(response => {
+          callback(response.data)
+        })
+    },
     secondFactorBackupCode: (code) => {
       axios.get(baseUrl + '/authenticate/backup-codes?code=' + code)
     },
