@@ -31,6 +31,9 @@
           test: '123\ntest',
           codes: ['aaaa-aaaa-aaaaa', 'bbbb-bbbb-bbbb', 'ccccc-cccc-cccc']
         }
+      },
+      created: () => {
+
       }
     }
 </script>

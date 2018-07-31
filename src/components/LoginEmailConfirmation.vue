@@ -25,18 +25,18 @@ a {
 </style>
 <script>
 export default {
-  methods: {
-    alertUser: function (user) {
-      if (this.user != null && this.user.email) {
-        this.$router.push('profile')
-      }
-    }
-  },
   created: function () {
-    this.subscribeToUser(user => {
-      this.alertUser(this.user)
-    })
-    this.confirmEmailToken(this.$route.query.userId, this.$route.query.token)
+    this.verifyEmailSignIn(this.$route.query.token)
+      .then(data => {
+        this.exchangeToken(data.token)
+          .then(exchangeData => {
+            this.$cookie.set('com.quexten.userId', exchangeData.userId, { expires: '1Y' })
+            this.$cookie.set('com.quexten.token', exchangeData.token, { expires: '1Y' })
+            this.$router.push('/account')
+            console.log(exchangeData)
+          })
+        console.log(data.token)
+      })
   }
 }
 </script>

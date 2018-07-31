@@ -96,9 +96,9 @@
 </template>
 
 <script>
-  import BackupCodes from '@/components/BackupCodesSetup'
-  import TotpSetup from '@/components/TotpSetup'
-  import U2FSetup from '@/components/U2FSetup'
+  import BackupCodes from '@/components/secondfactor/BackupCodesSetup'
+  import TotpSetup from '@/components/secondfactor/TotpSetup'
+  import U2FSetup from '@/components/secondfactor/U2FSetup'
 
   export default {
     data () {

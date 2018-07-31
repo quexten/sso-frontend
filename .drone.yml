@@ -1,0 +1,55 @@
+pipeline:
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+     - ./node_modules
+     - ./yarn.lock
+    volumes:
+      - /tmp/cache:/cache
+
+  install:
+    image: node:10.1.0
+    commands:
+      - yarn install
+      - node -v
+      - npm -v
+      - yarn -v
+
+  build:
+    image: node:10.1.0
+    commands:
+      - npm run build
+
+  publish:
+    image: plugins/docker
+    repo: quexten/sso-frontend
+    tags: latest
+    secrets: [ docker_username, docker_password ]
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - ./node_modules
+      - ./yarn.lock
+    volumes:
+      - /tmp/cache:/cache
+  
+  notify-telegram-fail:
+    image: appleboy/drone-telegram
+    token: 676321391:AAFWtrvlqju_8um3ur8gDP16EHJmzPtFQyU
+    to: 436061013
+    message:
+      Build {{build.number}} failed. {{ build.link }}
+    when:
+      status: [ failure ]
+
+  notify-telegrame-success:
+    image: appleboy/drone-telegram
+    token: 686461508:AAEaWghtYF8eE2ve6_TsPj46aZwbxKC5v-8
+    to: 436061013
+    message:
+      Build {{build.number}} succeded. {{ build.link }}
+    when:
+      status: [ success ]    

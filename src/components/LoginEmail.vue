@@ -4,10 +4,10 @@
     <h1 style="font-size: x-large" class="headline mb-0">Enter Your Email To Login</h1>
   </div>
   <v-card-text>
-    <v-text-field color="accent" @change="checkValidity" v-model="email" prepend-icon="email" name="email" label="Email" type="email" :rules="[(v) => !checkValidity() || 'Enter valid email']"></v-text-field>
+    <v-text-field color="titlebar" @change="checkValidity" v-model="email" prepend-icon="email" name="email" label="Email" type="email" :rules="[(v) => !checkValidity() || 'Enter valid email']"></v-text-field>
   </v-card-text>
   <v-card-actions>
-    <v-btn block :disabled="isDisabled" color="accent"  @click.native="signInEmail(email, () => {}, (data) => { setAlert(true) })">Login</v-btn>
+    <v-btn block dark :disabled="isDisabled" color="titlebar"  @click.native="requestEmailSignIn(email, () => {}).then((data) => { setAlert(true) })">Login</v-btn>
   </v-card-actions>
 
   <v-alert
@@ -58,6 +58,9 @@ a {
       isDisabled () {
         return this.checkValidity()
       }
+    },
+    created: function () {
+      this.$vuetify.theme.titlebar = this.$vuetify.theme.email
     }
   }
 </script>

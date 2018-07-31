@@ -71,7 +71,7 @@
 </template>
 
 <script>
-    import SecondFactor from '@/components/SecondFactor'
+    import SecondFactor from '@/components/secondfactor/SecondFactor'
     import PrimaryFactor from '@/components/PrimaryFactor'
     import Profile from '@/components/Profile'
     import Audit from '@/components/Audit'
@@ -94,6 +94,9 @@
         PrimaryFactor,
         Profile,
         Audit
+      },
+      created: function () {
+        this.$vuetify.theme.titlebar = this.$vuetify.theme.primary
       }
     }
 </script>

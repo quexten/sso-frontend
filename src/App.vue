@@ -5,7 +5,7 @@
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md7>
             <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
+              <v-toolbar dark color="titlebar">
               <v-toolbar-title>{{this.$router.history.current.name}}</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>

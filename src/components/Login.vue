@@ -7,19 +7,11 @@
       <v-spacer></v-spacer>
     </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="email" @click.native="$router.push('/login-email')">
+    <v-btn block class="white--text" color="email" @click.native="$router.push('/login/email')">
     <v-icon dark left class="btnimgmail">mail_outline</v-icon>
     Sign In With Email
     </v-btn>
   </v-card-actions>
-  <v-card-actions>
-    <v-btn block class="white--text" color="error" @click.native="$router.push('/test')">
-      <v-icon dark left class="btnimgmail">mail_outline</v-icon>
-      Sign In With TEST
-    </v-btn>
-  </v-card-actions>
-
-
   <v-card-actions>
     <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()">
       <img class="btnimggoogle" height="44" width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
@@ -115,9 +107,7 @@ a {
       }
     },
     created: function () {
-      this.subscribeToUser(user => {
-        this.alertUser(this.user)
-      })
+      this.$vuetify.theme.titlebar = this.$vuetify.theme.primary
     }
   }
 </script>
