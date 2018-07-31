@@ -14,7 +14,7 @@
     type="success"
     :value="alert"
     transition="scale-transition"
-  > Login Email Sent, Check Your Mail
+  > Login Email Sent, Check Your Emails
   </v-alert>
 </v-content>
 </template>
