@@ -41,17 +41,14 @@
     name: 'TotpSetup',
     data () {
       return {
-        test: '123\ntest',
         codes: ['aaaa-aaaa-aaaaa', 'bbbb-bbbb-bbbb', 'ccccc-cccc-cccc'],
         options: [
-          { active: true, title: 'Email', avatar: 'https://quexten.com/Totp.svg' },
+          { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' },
           { title: 'Facebook', avatar: 'https://raw.githubusercontent.com/Quexten/sso-frontend/master/src/assets/btn_facebook_blue.png' },
           { title: 'Google', avatar: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' }
         ],
         items: [
-          { active: true, title: 'Email', avatar: 'https://quexten.com/Totp.svg' },
-          { title: 'Facebook', avatar: 'https://quexten.com/U2F.svg' },
-          { title: 'Google', avatar: 'https://quexten.com/U2F.svg' }
+          { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' }
         ]
       }
     }

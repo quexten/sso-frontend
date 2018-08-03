@@ -107,10 +107,6 @@
         totp: false,
         u2f: false,
         items: [
-          { active: true, title: 'Backup-Codes' },
-          { active: true, title: 'Mobile Authenticator', avatar: 'https://quexten.com/Totp.svg' },
-          { title: 'U2F Security Token', avatar: 'https://quexten.com/U2F.svg' },
-          { title: 'U2F Security Token', avatar: 'https://quexten.com/U2F.svg' }
         ]
       }
     },

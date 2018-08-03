@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-let baseUrl = 'http://localhost:3000'
+let apiEndpoint = 'http://localhost:3000/auth'
 
 export default {
   methods: {
     requestEmailSignIn: async function (email) {
       try {
-        return await axios.post(baseUrl + '/authenticate/primary/mail', {
+        return await axios.post(apiEndpoint + '/primary/mail', {
           mail: email
         }).data
       } catch (err) {
@@ -14,13 +14,13 @@ export default {
       }
     },
     verifyEmailSignIn: async function (token) {
-      let response = await axios.post(baseUrl + '/authenticate/primary/mail/callback', {
+      let response = await axios.post(apiEndpoint + '/primary/mail/callback', {
         token: token
       })
       return response.data
     },
     exchangeToken: async function (token) {
-      let response = await axios.post(baseUrl + '/authenticate/exchange', {
+      let response = await axios.post(apiEndpoint + '/exchange', {
         primary: token
       })
       return response.data

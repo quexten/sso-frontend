@@ -13,13 +13,13 @@
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="google" @click.native="authenticateGoogle()">
+    <v-btn block outline class="white--text" color="google" @click.native="authenticateGoogle()">
       <img class="btnimggoogle" height="44" width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
       Sign In With Google
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="facebook" @click.native="authenticateFacebook()">
+    <v-btn block outline class="white--text" color="facebook" @click.native="authenticateFacebook()">
       <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook.png" />
       <div style="clear: left">
          Sign in with facebook
@@ -33,19 +33,19 @@
 <style scoped>
 .btnimgmail {
   position: absolute;
-  left: 6px;
+  left: -10px;
   top: 50%;
   transform: translateY(-50%);
 }
 .btnimggoogle {
   position: absolute;
-  left: -4px;
+  left: -20px;
   top: 50%;
   transform: translateY(-50%);
 }
 .btnimgfacebook {
   position: absolute;
-  left: 4px;
+  left: -12px;
   top: 50%;
   transform: translateY(-50%);
 }

@@ -14,7 +14,7 @@
             item-value="name"
             max-height="auto"
             autocomplete
-            v-on:input="changeAvatar(avatar)"
+            v-on:input=""
             color="primary"
           >
             <template slot="selection" slot-scope="data">
@@ -25,7 +25,7 @@
                 :key="JSON.stringify(data.item)"
               >
                 <v-avatar>
-                  <img :src="data.item.avatar">
+                  <img src="https://s3.eu-central-1.amazonaws.com/quexten/avatar_1920.png">
                 </v-avatar>
                 {{ data.item.name }}
               </v-chip>
@@ -44,7 +44,7 @@
                 </v-list-tile-content>
               </template>
             </template>
-          </v-select>
+      </v-select>
     </v-card-actions>
     <v-card-actions>
       <v-text-field
@@ -52,12 +52,12 @@
         v-model="username"
         counter
         max="15"
-        v-on:change="changeUsername(username)"
+        v-bind:change="updateProfile(0, { username: username })"
         color="primary"
       ></v-text-field>
     </v-card-actions>
     <v-card-actions>
-      <v-btn block color="primary">Logout</v-btn>
+      <v-btn block outline color="primary">Logout</v-btn>
     </v-card-actions>
     <v-card-actions>
       <v-btn block outline color="error">Delete</v-btn>
@@ -85,105 +85,23 @@ a {
 }
 </style>
 <script>
-import LightTimeline from 'vue-light-timeline'
-
-const md5 = require('js-md5')
-
 export default {
   data () {
     return {
-      avatar: 'Email',
-      username: '',
-      signedIn: false,
-      wasSignedIn: false,
-      signedInWithGoogle: false,
-      signedInWithEmail: false,
-      signedInWithFacebook: false,
-      icons: [],
-      avatarEmail: '',
-      avatarGoogle: '',
-      avatarFacebook: '',
-      showAuditLog: true,
-      items: [
+      avatar: 'https://s3.eu-central-1.amazonaws.com/quexten/avatar_1920.png',
+      username: 'USERNAME',
+      icons: [
         {
-          tag: '2018-01-12',
-          content: 'hallo'
-        },
-        {
-          tag: '2018-01-13',
-          color: '#dcdcdc',
-          type: 'circle',
-          content: 'world'
-        },
-        {
-          type: 'star',
-          tag: '2018-01-14',
-          content: '=v ='
+          name: 'Email (Gravatar)',
+          avatar: 'https://s3.eu-central-1.amazonaws.com/quexten/avatar_1920.png'
         }
-      ]
+      ],
     }
-  },
-  methods: {
-    clickEmailButton: function () {
-      if (!('email' in this.user)) {
-        this.$router.push('/login-email')
-      }
-    },
-    clickGoogleButton: function () {
-      if (!('google' in this.user)) {
-        // eslint-disable-next-line
-        authenticateGoogle()
-      }
-    },
-    clickFacebookButton: function () {
-      if (!(('facebook') in this.user)) {
-        // eslint-disable-next-line
-        authenticateFacebook()
-      }
-    }
-  },
-  components: {
-    LightTimeline
   },
   created: function () {
-    this.subscribeToUser(user => {
-      this.signedInWithEmail = (this.user != null) && (this.user.email != null)
-      this.signedInWithGoogle = (this.user != null) && (this.user.google != null)
-      this.signedInWithFacebook = (this.user != null) && (this.user.facebook != null)
-      this.signedIn = this.signedInWithEmail || this.signedInWithGoogle || this.signedInWithFacebook
-      if (this.wasSignedIn && !this.signedIn) {
-        this.$router.push('/')
-      }
-      this.wasSignedIn = this.signedIn
-      this.username = this.user && this.user.profile && this.user.profile.username
-      this.icons = [{ header: 'Profile Icon' }]
-
-      if (this.signedInWithEmail) {
-        this.avatarEmail = 'https://www.gravatar.com/avatar/' + md5(this.user.email.email.toLowerCase().trim())
-        this.icons.push({ name: 'Email', group: 'Via Gravatar', avatar: this.avatarEmail })
-      }
-      if (this.signedInWithGoogle) {
-        this.avatarGoogle = 'https://pikmail.herokuapp.com/' + this.user.google.email + '?size=200'
-        this.icons.push({ name: 'Google', avatar: this.avatarGoogle })
-      }
-      if (this.signedInWithFacebook) {
-        this.avatarFacebook = 'https://graph.facebook.com/' + this.user.facebook.id + '/picture?type=large'
-        this.icons.push({ name: 'Facebook', avatar: this.avatarFacebook })
-      }
-
-      if (this.user != null) {
-        if ('profile' in this.user) {
-          this.avatar = this.user.profile.avatar
-        } else if ('avatar' in this) {
-          if (this.user.email) {
-            this.avatar = 'Email'
-          } else if (this.user.google) {
-            this.avatar = 'Google'
-          } else if (this.user.facebook) {
-            this.avatar = 'Facebook'
-          }
-        }
-      }
+    this.username = 'test'
+    this.getProfile(0).then((profile) => {
+      this.username = profile.username
     })
   }
 }

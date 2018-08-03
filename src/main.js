@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import mixin from './sso-api.js'
+import authMixin from './api/auth.js'
+import usersMixin from './api/users.js'
 import VueCookie from 'vue-cookie'
 import VueSVGCustomIcon from 'vue-svg-custom-icon'
 Vue.use(VueSVGCustomIcon, { basePath: '/assets' })
@@ -25,7 +26,8 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 
 Vue.use(router)
-Vue.mixin(mixin)
+Vue.mixin(authMixin)
+Vue.mixin(usersMixin)
 Vue.use(VueCookie)
 
 /* eslint-disable no-new */
