@@ -16,6 +16,11 @@ pipeline:
       - npm -v
       - yarn -v
 
+  tag:
+    image: node:10.1.0
+    commands:
+      - echo -n "$$COMMIT, $$BRANCH, $$TAG, $$BUILD_NUMBER" > .tags
+
   build:
     image: node:10.1.0
     commands:
@@ -24,7 +29,6 @@ pipeline:
   publish:
     image: plugins/docker
     repo: quexten/sso-frontend
-    tags: latest
     secrets: [ docker_username, docker_password ]
 
   rebuild-cache:
@@ -35,7 +39,7 @@ pipeline:
       - ./yarn.lock
     volumes:
       - /tmp/cache:/cache
-  
+
   notify-telegram-fail:
     image: appleboy/drone-telegram
     token: 676321391:AAFWtrvlqju_8um3ur8gDP16EHJmzPtFQyU
@@ -52,4 +56,4 @@ pipeline:
     message:
       Build {{build.number}} succeded. {{ build.link }}
     when:
-      status: [ success ]    
+      status: [ success ]
