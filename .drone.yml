@@ -19,8 +19,8 @@ pipeline:
   tag:
     image: node:10.1.0
     commands:
-      - echo -n "$$COMMIT, $$BRANCH, $$TAG, $$BUILD_NUMBER" > .tags
-      - echo "Tags $$COMMIT $$BRANCH $$TAG $$BUILD_NUMBER"
+      - echo -n "${COMMIT}, ${BRANCH}, ${TAG}, ${BUILD_NUMBER}" > .tags
+      - echo "Tags ${COMMIT} ${BRANCH} ${TAG} ${BUILD_NUMBER}"
       - cat .tags
 
   build:
