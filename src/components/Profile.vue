@@ -95,7 +95,7 @@ export default {
           name: 'Email (Gravatar)',
           avatar: 'https://s3.eu-central-1.amazonaws.com/quexten/avatar_1920.png'
         }
-      ],
+      ]
     }
   },
   created: function () {
