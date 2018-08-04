@@ -19,9 +19,7 @@ pipeline:
   tag:
     image: node:10.1.0
     commands:
-      - echo -n "${DRONE_COMMIT}, ${DRONE_BRANCH}, ${DRONE_TAG}, ${DRONE_BUILD_NUMBER}" > .tags
-      - echo "Tags ${DRONE_COMMIT} ${DRONE_BRANCH} ${DRONE_TAG} ${DRONE_BUILD_NUMBER}"
-      - cat .tags
+      - echo -n "latest, ${DRONE_COMMIT}, ${DRONE_BRANCH}, ${DRONE_BUILD_NUMBER}" > .tags
 
   build:
     image: node:10.1.0
