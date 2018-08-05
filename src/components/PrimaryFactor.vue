@@ -1,9 +1,13 @@
 <template>
-  <v-content>
+  <v-content class="content">
+    <v-card-title>
+      <v-divider></v-divider>
+      <h4 class="grey--text">Sign in options</h4>
+      <v-divider></v-divider>
+    </v-card-title
     <v-card-text>
       <v-list subheader>
-        <v-subheader>Authentication Services</v-subheader>
-        <v-list-tile v-for="item in items" :key="item.title" avatar @click="">
+        <v-list-tile ripple class="elevation-5 my-3" v-for="item in items" :key="item.title" avatar @click="">
           <v-list-tile-avatar tile>
             <img :src="item.avatar">
           </v-list-tile-avatar>
@@ -23,7 +27,7 @@
           Add
         </v-btn>
         <v-list>
-          <v-list-tile v-for="(item, i) in options" :key="i" @click="">
+          <v-list-tile ripple v-for="(item, i) in options" :key="i" @click="">
             <v-avatar size="30" tile>
               <img :src="item.avatar">
             </v-avatar>
@@ -38,14 +42,11 @@
 
 <script>
   export default {
-    name: 'TotpSetup',
+    name: 'Sign In Options',
     data () {
       return {
-        codes: ['aaaa-aaaa-aaaaa', 'bbbb-bbbb-bbbb', 'ccccc-cccc-cccc'],
         options: [
-          { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' },
-          { title: 'Facebook', avatar: 'https://raw.githubusercontent.com/Quexten/sso-frontend/master/src/assets/btn_facebook_blue.png' },
-          { title: 'Google', avatar: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' }
+          { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' }
         ],
         items: [
           { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' }
@@ -56,5 +57,4 @@
 </script>
 
 <style scoped>
-
 </style>

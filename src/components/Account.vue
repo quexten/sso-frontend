@@ -1,11 +1,14 @@
 <template>
-  <v-layout width="1000px">
+  <v-layout>
       <v-navigation-drawer
         id="navigation"
         permanent
+        touchless
         dark
-        width="300"
-        :height="450"
+        width="180"
+        :height="600"
+        fill-height
+        :mini-variant.sync="iconsOnly"
       >
         <v-list>
           <v-list-tile
@@ -77,7 +80,7 @@
     import Audit from '@/components/Audit'
 
     export default {
-      name: 'TotpSetup',
+      name: 'Account',
       data () {
         return {
           drawer: true,
@@ -97,6 +100,17 @@
       },
       created: function () {
         this.$vuetify.theme.titlebar = this.$vuetify.theme.primary
+      },
+      computed: {
+        iconsOnly () {
+          switch (this.$vuetify.breakpoint.name) {
+            case 'xs': return true
+            case 'sm': return false
+            case 'md': return false
+            case 'lg': return false
+            case 'xl': return false
+          }
+        }
       }
     }
 </script>

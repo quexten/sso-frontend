@@ -15,7 +15,7 @@
       Write them down, or download them and store theme somewhere safe, offline or in a password manager.
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary">
+      <v-btn color="primary" @click.native="downloadCodes(codes)">
         <v-icon left dark>get_app</v-icon>
         Download
       </v-btn>
@@ -32,12 +32,16 @@
           codes: ['aaaa-aaaa-aaaaa', 'bbbb-bbbb-bbbb', 'ccccc-cccc-cccc']
         }
       },
-      created: () => {
-
+      methods: {
+        downloadCodes: (codes) => {
+          window.open(URL.createObjectURL(new Blob([codes.join('\n')], {type: 'application/text'})))
+        }
       }
     }
 </script>
 
 <style scoped>
-
+.lightgrey {
+  background-color: lightgray;
+}
 </style>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let apiEndpoint = 'https://api.sso.quexten.com/auth'
+let apiEndpoint = 'http://localhost:3000/auth'
 
 export default {
   methods: {

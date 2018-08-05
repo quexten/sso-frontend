@@ -3,7 +3,7 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md7>
+          <v-flex xs12 sm11 md7>
             <v-card class="elevation-12">
               <v-toolbar dark color="titlebar">
               <v-toolbar-title>{{this.$router.history.current.name}}</v-toolbar-title>

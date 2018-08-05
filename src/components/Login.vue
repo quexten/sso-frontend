@@ -19,7 +19,7 @@
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block outline class="white--text" color="facebook" @click.native="authenticateFacebook()">
+    <v-btn block outline class="white--text" color="facebook" @click.native="">
       <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook.png" />
       <div style="clear: left">
          Sign in with facebook

@@ -11,7 +11,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="backupCodes = false">continue</v-btn>
+          <v-btn color="primary" flat @click.native="backupCodes = false">continue</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -72,19 +72,16 @@
         <v-list>
           <v-list-tile @click="backupCodes = true">
             <v-avatar size="30" tile>
-              <img src='https://quexten.com/U2F.svg'>
             </v-avatar>
             <v-list-tile-title>Backup Codes</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="totp = true">
             <v-avatar size="30" tile>
-              <img src='https://quexten.com/Totp.svg'>
             </v-avatar>
             <v-list-tile-title>Mobile Authenticator</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="u2f = true">
             <v-avatar size="30" tile>
-              <img src='https://quexten.com/U2F.svg'>
             </v-avatar>
             <v-list-tile-title>U2F Security Token</v-list-tile-title>
           </v-list-tile>
