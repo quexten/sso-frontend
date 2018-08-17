@@ -1,66 +1,52 @@
 <template>
-  <v-content>
+  <v-content class="profile">
     <v-card-actions>
       <v-divider></v-divider>
         <h4 class="grey--text">Profile</h4>
       <v-divider></v-divider>
     </v-card-actions>
     <v-card-actions>
-      <v-select
-            label="Profile Icon"
-            :items="icons"
-            v-model="avatar"
-            item-text="name"
-            item-value="name"
-            max-height="auto"
-            autocomplete
-            v-on:input=""
+      <v-avatar class="ma-2" size="130">
+        <img :src="avatar">
+      </v-avatar>
+      <v-container>
+        <v-text-field
+          label="Username"
+          v-model="username"
+          counter
+          max="15"
+          @change="$store.dispatch('setUsername', username)"
+          color="primary"
+          class="my-2"
+        ></v-text-field>
+
+        <v-menu offset-y>
+          <v-btn
             color="primary"
+            block
+            slot="activator"
+            disabled
           >
-            <template slot="selection" slot-scope="data">
-              <v-chip
-                @input="data.parent.selectItem(data.item)"
-                :selected="data.selected"
-                class="chip--select-multi"
-                :key="JSON.stringify(data.item)"
-              >
-                <v-avatar>
-                  <img src="https://s3.eu-central-1.amazonaws.com/quexten/avatar_1920.png">
-                </v-avatar>
-                {{ data.item.name }}
-              </v-chip>
-            </template>
-            <template slot="item" slot-scope="data">
-              <template v-if="typeof data.item !== 'object'">
-                <v-list-tile-content v-text="data.item"></v-list-tile-content>
-              </template>
-              <template v-else>
-                <v-list-tile-avatar>
-                  <img :src="data.item.avatar">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                  <v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>
-                </v-list-tile-content>
-              </template>
-            </template>
-      </v-select>
+            Select Avatar
+          </v-btn>
+          <v-list>
+            <v-list-tile
+              v-for="(item, index) in icons"
+              :key="index"
+              @click=""
+            >
+              <v-list-tile-avatar><img :src=item.avatar></v-list-tile-avatar>
+              <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </v-container>
     </v-card-actions>
     <v-card-actions>
-      <v-text-field
-        label="Username"
-        v-model="username"
-        counter
-        max="15"
-        v-bind:change="updateProfile(0, { username: username })"
-        color="primary"
-      ></v-text-field>
+      <v-btn block color="primary" @click.native="$store.dispatch('logout')">Logout</v-btn>
     </v-card-actions>
     <v-card-actions>
-      <v-btn block outline color="primary">Logout</v-btn>
-    </v-card-actions>
-    <v-card-actions>
-      <v-btn block outline color="error">Delete</v-btn>
+      <v-btn block color="error" @click.native="">Delete</v-btn>
     </v-card-actions>
 
   </v-content>
@@ -69,6 +55,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.profile {
+  transform: translateY(-100px);
+}
+
 h1, h2 {
   font-weight: normal;
 }
@@ -85,24 +75,18 @@ a {
 }
 </style>
 <script>
-export default {
-  data () {
-    return {
-      avatar: 'https://s3.eu-central-1.amazonaws.com/quexten/avatar_1920.png',
-      username: 'USERNAME',
-      icons: [
-        {
-          name: 'Email (Gravatar)',
-          avatar: 'https://s3.eu-central-1.amazonaws.com/quexten/avatar_1920.png'
-        }
-      ]
+  export default {
+    data () {
+      return {
+        avatar: '',
+        username: '',
+        icons: [
+        ]
+      }
+    },
+    created: function () {
+      this.username = this.$store.getters.username
+      this.avatar = this.$store.getters.avatar
     }
-  },
-  created: function () {
-    this.username = 'test'
-    this.getProfile(0).then((profile) => {
-      this.username = profile.username
-    })
   }
-}
 </script>

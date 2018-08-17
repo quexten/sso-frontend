@@ -13,16 +13,23 @@
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block outline class="white--text" color="google" @click.native="authenticateGoogle()">
+    <v-btn block class="white--text" color="google" @click.native="signInWithGoogle('http://localhost:1024/%23/login/primarySignedIn')">
       <img class="btnimggoogle" height="44" width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
       Sign In With Google
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block outline class="white--text" color="facebook" @click.native="">
-      <img class="btnimgfacebook" style="float: left;" height="28" width="28" alt="" src="../assets/btn_facebook.png" />
+    <v-btn block class="white--text" color="discord" @click.native="signInWithDiscord('http://localhost:1024/%23/login/primarySignedIn')">
+      <img class="btnimgdiscord" height="40" width="36" decoding="async" alt="Quexten" src="../assets/btn_discord.svg">
+      Sign In With Discord
+    </v-btn>
+  </v-card-actions>
+  <v-card-actions>
+    <v-btn block class="white--text" color="steam" @click.native="signInWithSteam('http://localhost:1024/%23/login/createUser')">
       <div style="clear: left">
-         Sign in with facebook
+        <img class="btnimgsteam" height="28" width="44" decoding="async" alt="Quexten" src="../assets/btn_steam.svg">
+
+        Sign in with steam
       </div>
     </v-btn>
   </v-card-actions>
@@ -40,6 +47,18 @@
 .btnimggoogle {
   position: absolute;
   left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.btnimgdiscord {
+  position: absolute;
+  left: -18px;
+  top: 54%;
+  transform: translateY(-50%);
+}
+.btnimgsteam {
+  position: absolute;
+  left: -22px;
   top: 50%;
   transform: translateY(-50%);
 }

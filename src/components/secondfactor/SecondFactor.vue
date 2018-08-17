@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-content v-bind:style="contentStyle">
 
     <v-dialog v-model="backupCodes" persistent max-width="500px">
       <v-card>
@@ -66,7 +66,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-menu bottom offset-y>
-        <v-btn slot="activator" color="primary">
+        <v-btn disabled slot="activator" color="primary">
           Add
         </v-btn>
         <v-list>
@@ -89,7 +89,7 @@
       </v-menu>
 
     </v-card-actions>
-  </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -111,6 +111,17 @@
       BackupCodes,
       TotpSetup,
       U2FSetup
+    },
+    computed: {
+      contentStyle () {
+        let left = this.$vuetify.breakpoint.name === 'xs' ? '80px' : '150px'
+        return {
+          position: 'absolute',
+          top: '70px',
+          left: left,
+          right: '15px'
+        }
+      }
     }
   }
 </script>

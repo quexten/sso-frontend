@@ -11,20 +11,18 @@
 	},
 	"dependencies": {
 		"axios": "^0.18.0",
-		"js-md5": "^0.7.3",
-		"ooth-client": "^1.5.0",
+		"jsonwebtoken": "^8.3.0",
 		"run": "^1.4.0",
 		"scriptjs": "^2.5.8",
-		"vue": "^2.5.16",
+		"vue": "^2.5.17",
 		"vue-authenticate": "^1.3.4",
-		"vue-axios": "^2.1.2",
+		"vue-axios": "^2.1.3",
 		"vue-cookie": "^1.1.4",
-		"vue-google-auth": "github:Quexten/vue-google-auth",
-		"vue-light-timeline": "^0.12.8",
 		"vue-router": "^3.0.1",
 		"vue-svg-custom-icon": "^1.0.6",
-		"vuetify": "^1.1.9",
-		"zxcvbn": "^4.4.2"
+		"vuetify": "^1.1.10",
+		"vuex": "^3.0.1",
+		"vuex-persistedstate": "^2.5.4"
 	},
 	"devDependencies": {
 		"autoprefixer": "^7.1.2",
@@ -56,7 +54,7 @@
 		"node-notifier": "^5.1.2",
 		"optimize-css-assets-webpack-plugin": "^3.2.0",
 		"ora": "^1.2.0",
-		"portfinder": "^1.0.13",
+		"portfinder": "^1.0.16",
 		"postcss-import": "^11.0.0",
 		"postcss-loader": "^2.1.6",
 		"postcss-url": "^7.3.2",
@@ -67,11 +65,11 @@
 		"url-loader": "^1.0.1",
 		"vue-loader": "^13.7.2",
 		"vue-style-loader": "^3.0.1",
-		"vue-template-compiler": "^2.5.16",
+		"vue-template-compiler": "^2.5.17",
 		"webpack": "^3.12.0",
 		"webpack-bundle-analyzer": "^2.13.1",
 		"webpack-dev-server": "^2.11.2",
-		"webpack-merge": "^4.1.3"
+		"webpack-merge": "^4.1.4"
 	},
 	"engines": {
 		"node": ">= 6.0.0",

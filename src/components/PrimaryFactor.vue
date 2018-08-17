@@ -1,5 +1,5 @@
 <template>
-  <v-content class="content">
+  <v-content v-bind:style="contentStyle">
     <v-card-title>
       <v-divider></v-divider>
       <h4 class="grey--text">Sign in options</h4>
@@ -14,16 +14,13 @@
           <v-list-tile-content>
             <v-list-tile-title v-html="item.title"></v-list-tile-title>
           </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon color="error">delete</v-icon>
-          </v-list-tile-action>
         </v-list-tile>
       </v-list>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-menu bottom offset-y>
-        <v-btn slot="activator" color="primary">
+        <v-btn disabled slot="activator" color="primary">
           Add
         </v-btn>
         <v-list>
@@ -51,6 +48,17 @@
         items: [
           { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' }
         ]
+      }
+    },
+    computed: {
+      contentStyle () {
+        let left = this.$vuetify.breakpoint.name === 'xs' ? '80px' : '150px'
+        return {
+          position: 'absolute',
+          top: '70px',
+          left: left,
+          right: '15px'
+        }
       }
     }
   }

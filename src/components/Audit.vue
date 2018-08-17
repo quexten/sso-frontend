@@ -1,5 +1,5 @@
 <template>
-  <v-content class="audit py-0">
+  <v-content v-bind:style="contentStyle" class="audit py-0">
     <v-card-actions>
       <v-divider></v-divider>
       <h4 class="grey--text">Audit</h4>
@@ -12,7 +12,7 @@
         <v-list-tile ripple v-else :key="item.title" avatar @click="selectedItem = item; viewerOpen = true" class="elevation-5 my-3">
           <v-icon class="event-icon mr-2">{{icons[item.type]}}</v-icon>
           <v-list-tile-content>
-            <v-list-tile-title v-if="!smallLayout">{{names[item.type]}} ({{item.date.toLocaleTimeString('en-us', {hour: '2-digit', minute:'2-digit'})}})</v-list-tile-title>
+            <v-list-tile-title v-if="!smallLayout">{{names[item.type]}} ({{new Date(Date.parse(item.time)).toLocaleTimeString('en-us', {hour: '2-digit', minute: '2-digit'})}})</v-list-tile-title>
             Aachen - Germany
           </v-list-tile-content>
         </v-list-tile>
@@ -20,12 +20,12 @@
     </v-list>
     <v-pagination
       v-model="page"
-      :length="pageCount"
+      :length="Math.ceil(items.length / 5)"
       :total-visible="7"
       v-if="!smallLayout"
     ></v-pagination>
     <v-btn color="primary" v-if="smallLayout" :disabled="page == 1" @click="page --">Previous</v-btn>
-    <v-btn color="primary" v-if="smallLayout" :disabled="page == pageCount" @click="page ++">Next</v-btn>
+    <v-btn color="primary" v-if="smallLayout" :disabled="page >= Math.ceil(items.length / 5)" @click="page ++">Next</v-btn>
 
     <v-dialog
       v-model="viewerOpen"
@@ -41,8 +41,8 @@
 
         <v-card-text>
           <v-icon color="primary">location_on</v-icon> Aachen - Germany ({{selectedItem.origin}})<br>
-          <v-icon color="primary">stay_current_portrait</v-icon> {{selectedItem.useragent}}<br>
-          <v-icon color="primary">date_range</v-icon> {{selectedItem.date.toLocaleString()}}
+          <v-icon color="primary">stay_current_portrait</v-icon> {{selectedItem.userAgent}}<br>
+          <v-icon color="primary">date_range</v-icon> {{new Date(selectedItem.time).toLocaleString()}}
         </v-card-text>
 
         <v-divider></v-divider>
@@ -65,74 +65,35 @@
     export default {
       data () {
         return {
-          page: 3,
-          pageCount: 10,
+          page: 1,
           viewerOpen: false,
           selectedItem: null,
           items: [
-            {
-              origin: '127.0.0.1',
-              date: new Date(Date.now()),
-              useragent: 'Linux/Chrome',
-              type: 'com.quexten.sso.signin',
-              data: {
-                provider: 'google'
-              }
-            },
-            {
-              origin: '127.0.0.1',
-              date: new Date(Date.now()),
-              useragent: 'Linux/Chrome',
-              type: 'com.quexten.sso.signout',
-              data: {
-                provider: 'google'
-              }
-            },
-            {
-              origin: '127.0.0.1',
-              date: new Date(Date.now()),
-              useragent: 'Linux/Chrome',
-              type: 'com.quexten.sso.add-primary-authenticator',
-              data: {
-                provider: 'google'
-              }
-            },
-            {
-              origin: '127.0.0.1',
-              date: new Date(Date.now()),
-              useragent: 'Linux/Chrome',
-              type: 'com.quexten.sso.add-primary-authenticator',
-              data: {
-                provider: 'google'
-              }
-            },
-            {
-              origin: '127.0.0.1',
-              date: new Date(Date.now()),
-              useragent: 'Linux/Chrome',
-              type: 'com.quexten.sso.add-primary-authenticator',
-              data: {
-                provider: 'google'
-              }
-            }
           ],
           names: {
+            'com.quexten.sso.createUser': 'Create User',
             'com.quexten.sso.signin': 'Login',
             'com.quexten.sso.signout': 'Logout',
-            'com.quexten.sso.add-primary-authenticator': 'Add Primary Authenticator',
+            'com.quexten.sso.addPrimaryAuthenticator': 'Add Primary Authenticator',
             'com.quexten.sso.remove-primary-authenticator': 'Remove Primary Authenticator',
             'com.quexten.sso.add-secondary-authenticator': 'Add Secondary Authenticator',
             'com.quexten.sso.remove-secondary-authenticator': 'Remove Secondary Authenticator'
           },
           icons: {
+            'com.quexten.sso.createUser': 'person_add',
             'com.quexten.sso.signin': 'add_to_queue',
             'com.quexten.sso.signout': 'remove_from_queue',
-            'com.quexten.sso.add-primary-authenticator': 'security',
+            'com.quexten.sso.addPrimaryAuthenticator': 'security',
             'com.quexten.sso.remove-primary-authenticator': 'security',
             'com.quexten.sso.add-secondary-authenticator': 'fingerprint',
             'com.quexten.sso.remove-secondary-authenticator': 'fingerprint'
           }
         }
+      },
+      created: function () {
+        this.items = this.$store.getters.audit.slice().reverse()
+        console.log(this.items[0].time)
+        console.log(Date.parse(this.items[0].time))
       },
       computed: {
         smallLayout () {
@@ -142,6 +103,15 @@
             case 'md': return false
             case 'lg': return false
             case 'xl': return false
+          }
+        },
+        contentStyle () {
+          let left = this.$vuetify.breakpoint.name === 'xs' ? '80px' : '150px'
+          return {
+            position: 'absolute',
+            top: '70px',
+            left: left,
+            right: '15px'
           }
         }
       }

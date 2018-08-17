@@ -16,7 +16,7 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-footer :fixed="fixed" app>
+    <v-footer app>
       <span>&copy; 2018 Quexten </span>
       <v-spacer></v-spacer>
       <router-link to="/privacy"> Privacy </router-link>
