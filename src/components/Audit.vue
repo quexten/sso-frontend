@@ -92,8 +92,6 @@
       },
       created: function () {
         this.items = this.$store.getters.audit.slice().reverse()
-        console.log(this.items[0].time)
-        console.log(Date.parse(this.items[0].time))
       },
       computed: {
         smallLayout () {
