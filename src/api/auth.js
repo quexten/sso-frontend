@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let apiEndpoint = 'http://localhost:3000/auth/'
+let apiEndpoint = 'http://quexten.pw:3000/auth/'
 let api = axios.create({
   baseURL: apiEndpoint
 })

@@ -6,7 +6,7 @@
       <v-divider></v-divider>
     </v-card-actions>
     <v-card-actions>
-      <v-avatar class="ma-2" size="130">
+      <v-avatar class="ma-0" size="100">
         <img :src="avatar">
       </v-avatar>
       <v-container>
@@ -68,7 +68,7 @@ ul {
 }
 li {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 a {
   color: #42b983;

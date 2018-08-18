@@ -13,19 +13,19 @@
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="google" @click.native="signInWithGoogle('http://localhost:1024/%23/login/primarySignedIn')">
+    <v-btn block class="white--text" color="google" @click.native="signInWithGoogle('http://quexten.pw:1024/%23/login/primarySignedIn')">
       <img class="btnimggoogle" height="44" width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
       Sign In With Google
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="discord" @click.native="signInWithDiscord('http://localhost:1024/%23/login/primarySignedIn')">
+    <v-btn block class="white--text" color="discord" @click.native="signInWithDiscord('http://quexten.pw:1024/%23/login/primarySignedIn')">
       <img class="btnimgdiscord" height="40" width="36" decoding="async" alt="Quexten" src="../assets/btn_discord.svg">
       Sign In With Discord
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="steam" @click.native="signInWithSteam('http://localhost:1024/%23/login/primarySignedIn')">
+    <v-btn block class="white--text" color="steam" @click.native="signInWithSteam('http://quexten.pw:1024/%23/login/primarySignedIn')">
       <div style="clear: left">
         <img class="btnimgsteam" height="28" width="44" decoding="async" alt="Quexten" src="../assets/btn_steam.svg">
 

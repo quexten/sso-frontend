@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
-const HOST = process.env.HOST
+const HOST = 'quexten.pw'
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
@@ -44,8 +44,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3000"
-    }
+      "Access-Control-Allow-Origin": "http://quexten.pw:3000"
+    },
+    disableHostCheck: true
   },
   plugins: [
     new webpack.DefinePlugin({
