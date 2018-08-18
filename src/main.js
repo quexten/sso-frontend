@@ -12,6 +12,7 @@ import VueCookie from 'vue-cookie'
 import VueSVGCustomIcon from 'vue-svg-custom-icon'
 import JWTWrapper from './api/JWTWrapper'
 import authentication from './store/modules/authentication'
+import app from './store/modules/app'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(VueSVGCustomIcon, { basePath: '/assets' })
@@ -37,7 +38,8 @@ const store = new Vuex.Store({
   mutations: {
   },
   modules: {
-    authentication: authentication
+    authentication,
+    app
   },
   plugins: [createPersistedState()]
 })
@@ -50,13 +52,7 @@ Vue.mixin(usersMixin)
 Vue.mixin(JWTWrapper)
 Vue.use(VueCookie)
 
-store.watch(state => state.authentication.user, (newValue, oldValue) => {
-  if (oldValue === null && newValue !== null) {
-    router.push('/account')
-  }
-  if (oldValue !== null && newValue === null) {
-    router.push('/')
-  }
+store.watch(state => state.authentication.tokens.primaryAuthToken, (newValue, oldValue) => {
 })
 
 /* eslint-disable no-new */
@@ -67,8 +63,21 @@ new Vue({
   components: { App },
   template: '<App/>',
   created: function () {
-    if (this.$store.getters.user !== null) {
-      this.$router.push('/account')
+    if ('redirect' in this.$route.query) {
+      this.$store.commit('setRedirect', this.$route.query.redirect)
+    } else {
+      this.$store.commit('removeRedirect')
+    }
+
+    if (this.$store.getters.isAuthenticated) {
+      let redirect = this.$store.getters.redirect
+      this.$store.commit('removeRedirect')
+
+      if (redirect.substring(0, 1) === `/`) {
+        this.$router.push(redirect)
+      } else {
+        location.href = redirect
+      }
     }
   }
 })

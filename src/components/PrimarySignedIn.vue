@@ -25,18 +25,11 @@ a {
 </style>
 <script>
   export default {
-    data () {
-      return {
-        token: '',
-        parsedToken: null
-      }
-    },
     created: function () {
-      this.token = this.$route.query.token
-      this.$cookie.set('com.quexten.sso.primaryAuthenticatorToken', this.token, 22)
-
-      this.parsedToken = this.decode(this.token)
-      if (this.parsedToken.userId == null) {
+      this.$store.commit('setPrimaryAuthToken', this.$route.query.token)
+      if (this.$store.getters.parsedPrimaryAuthToken.userId !== null) {
+        this.$router.push('/signedIn')
+      } else {
         this.$router.push('/login/createUser')
       }
     }

@@ -25,13 +25,17 @@ a {
 </style>
 <script>
   export default {
-    data () {
-      return {
-        token: '',
-        parsedToken: null
-      }
-    },
     created: function () {
+      this.$store.dispatch('exchangeTokens').then(() => {
+        let redirect = this.$store.getters.redirect
+        this.$store.commit('removeRedirect')
+
+        if (redirect.substring(0, 1) === `/`) {
+          this.$router.push(redirect)
+        } else {
+          location.href = redirect
+        }
+      })
     }
   }
 </script>

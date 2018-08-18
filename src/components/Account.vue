@@ -84,12 +84,7 @@
       data () {
         return {
           drawer: true,
-          screen: 'profile',
-          codes: ['aaaa-aaaa-aaaaa', 'bbbb-bbbb-bbbb', 'ccccc-cccc-cccc'],
-          items: [{
-            title: 'Test',
-            icon: 'vpn_key'
-          }]
+          screen: 'profile'
         }
       },
       components: {
@@ -102,14 +97,22 @@
         this.$vuetify.theme.titlebar = this.$vuetify.theme.primary
       },
       computed: {
-        iconsOnly () {
-          switch (this.$vuetify.breakpoint.name) {
-            case 'xs': return true
-            case 'sm': return false
-            case 'md': return false
-            case 'lg': return false
-            case 'xl': return false
-          }
+        iconsOnly: {
+          get: function () {
+            switch (this.$vuetify.breakpoint.name) {
+              case 'xs':
+                return true
+              case 'sm':
+                return false
+              case 'md':
+                return false
+              case 'lg':
+                return false
+              case 'xl':
+                return false
+            }
+          },
+          set: () => {}
         }
       }
     }

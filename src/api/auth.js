@@ -8,7 +8,7 @@ let api = axios.create({
 export default {
   methods: {
     // Email
-    requestEmailSignIn: async (email, redirect) => api.post('/primary/mail', {
+    requestEmailSignIn: async (email, redirect) => api.post('/mail', {
       mail: email,
       redirect: redirect
     }).data,
@@ -23,6 +23,12 @@ export default {
     // Discord
     signInWithDiscord: redirectUrl => {
       location.href = apiEndpoint + 'discord?redirect=' + redirectUrl
+    },
+    exchangeTokens: async (primaryAuthToken, secondaryAuthToken) => {
+      return (await api.post('/exchange', {
+        primaryAuthToken,
+        secondaryAuthToken
+      })).data
     }
   }
 }

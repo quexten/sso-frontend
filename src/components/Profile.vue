@@ -43,7 +43,7 @@
       </v-container>
     </v-card-actions>
     <v-card-actions>
-      <v-btn block color="primary" @click.native="$store.dispatch('logout')">Logout</v-btn>
+      <v-btn block color="primary" @click.native="$store.dispatch('logout').then(() => { $router.push('/') })">Logout</v-btn>
     </v-card-actions>
     <v-card-actions>
       <v-btn block color="error" @click.native="">Delete</v-btn>

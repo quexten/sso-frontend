@@ -25,7 +25,7 @@
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="steam" @click.native="signInWithSteam('http://localhost:1024/%23/login/createUser')">
+    <v-btn block class="white--text" color="steam" @click.native="signInWithSteam('http://localhost:1024/%23/login/primarySignedIn')">
       <div style="clear: left">
         <img class="btnimgsteam" height="28" width="44" decoding="async" alt="Quexten" src="../assets/btn_steam.svg">
 

@@ -7,6 +7,7 @@ import LoginEmailConfirmation from '@/components/LoginEmailConfirmation'
 import Account from '@/components/Account'
 import CreateUser from '@/components/CreateUser'
 import PrimarySignedIn from '@/components/PrimarySignedIn'
+import SignedIn from '@/components/SignedIn'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/login/primarySignedIn',
       name: 'Signing In',
       component: PrimarySignedIn
+    },
+    {
+      path: '/signedIn',
+      name: 'Signed In',
+      component: SignedIn
     }
   ]
 })

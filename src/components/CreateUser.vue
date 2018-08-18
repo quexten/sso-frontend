@@ -13,7 +13,7 @@
   <v-card-actions>
     <v-layout row wrap align-center>
       <v-flex class="text-xs-center">
-        <v-btn block dark color="titlebar"  @click.native="$store.dispatch('createUser', token)">Create</v-btn>
+        <v-btn block dark color="titlebar"  @click.native="$store.dispatch('createUser', token).then(() => { $router.push('/signedIn') })">Create</v-btn>
       </v-flex>
     </v-layout>
   </v-card-actions>
@@ -49,8 +49,8 @@ a {
     },
     created: function () {
       this.$vuetify.theme.titlebar = this.$vuetify.theme.primary
-      this.token = this.$cookie.get('com.quexten.sso.primaryAuthenticatorToken')
-      this.parsedPrimaryAuthToken = this.decode(this.token)
+      this.token = this.$store.getters.primaryAuthToken
+      this.parsedPrimaryAuthToken = this.$store.getters.parsedPrimaryAuthToken
       this.avatar = this.parsedPrimaryAuthToken.primaryAuthenticator.avatar
     }
   }
