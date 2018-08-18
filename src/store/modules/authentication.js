@@ -63,7 +63,7 @@ const actions = {
   },
   setUsername: async ({ commit, state }, username) => {
     let userId = state.user._id
-    let profile = await userApi.updateUsername(userId, null, username)
+    let profile = await userApi.updateUsername(userId, state.tokens.sessionToken, username)
     commit('setProfile', profile)
   },
   exchangeTokens: async ({ commit, state }) => {
