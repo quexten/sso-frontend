@@ -45,11 +45,11 @@ workflows:
   version: 2
   build_deploy:
     jobs:
-      build:
-        filters:
-          - release 
-      deploy:
-       requires: build
+      - build:
+          filters:
+            - release 
+      - deploy:
+         requires: build
     
       
 
