@@ -28,7 +28,7 @@ jobs:
     requires:
       - build
     docker:
-      - image: circleci/build-base:1.1
+      - image: circleci/builder-base:1.1
     steps:
       - run: git checkout master
       - attach_workspace:
