@@ -34,6 +34,8 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run: cp -r /tmp/workspace/dist ./
+      - run: git config --global user.email ci@quexten.com
+      - run: git config --global user.name CircleCI
       - run: git commit -m "Add dist files"
       - run: git push $(GITHUB_TOKEN)@github.com/quexten/sso-frontend.git master
 workflows:
