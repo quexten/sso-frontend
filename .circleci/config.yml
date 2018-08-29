@@ -35,6 +35,23 @@ jobs:
         
       # Run build
       - run: yarn run build
+  deploy:
+    requires:
+      build
+    docker:
+      - image: circleci/build-base:1.1
 
+workflows:
+  version: 2
+  build_deploy:
+    triggers:
+      filters:
+       - release
+    jobs:
+      - build
+      - deploy:
+         requires: build
+    
+      
 
 
