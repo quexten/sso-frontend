@@ -20,6 +20,7 @@ jobs:
        
       # Run build
       - run: yarn run build
+      - run: mkdir /tmp/workspace
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
