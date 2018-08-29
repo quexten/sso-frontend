@@ -37,7 +37,7 @@ jobs:
       - run: git config --global user.name CircleCI
       - run: git fetch --all
       - run: git  reset --hard origin/master
-      - run: rm -rf ./
+      - run: rm -rf .*
       - run: cp -r /tmp/workspace/dist ./
       - run: git add .
       - run: git commit -m "Add dist files"
