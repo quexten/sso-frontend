@@ -29,6 +29,7 @@ jobs:
       - build
     docker:
       - image: circleci/builder-base:1.1
+    working_director: ~/repo
     steps:
       - run: apt update
       - run: apt install -y --force-yes git
