@@ -37,12 +37,13 @@ jobs:
       - run: git config --global user.name CircleCI
       - run: git fetch --all
       - run: git reset --hard origin/master
-      - run: cp -R ./git ../git
+      - run: cp -R ./.git ../.git
       - run: cd ..
       - run: rm -rf ./repo
       - run: mkdir ./repo
       - run: cd ./repo
-      - run: cp -r /tmp/workspace/dist ./
+      - run: cp -R /tmp/workspace/dist ./
+      - run: cp -R ../.git ./.git
       - run: git add .
       - run: git commit -m "Add dist files"
       - run: git push $(GITHUB_TOKEN)@github.com/quexten/sso-frontend.git master
