@@ -45,7 +45,7 @@ jobs:
       - run: cp -R ../.git ./.git
       - run: git add .
       - run: git commit -m "Add dist files"
-      - run: git push -q https://${GITHUB_TOKEN}@github.com/quexten/sso-frontend.git master
+      - run: git push -q https://quexten:${GITHUB_TOKEN}@github.com/quexten/sso-frontend.git master
 workflows:
   version: 2
   build_deploy:
