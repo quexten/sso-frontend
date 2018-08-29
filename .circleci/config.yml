@@ -26,12 +26,10 @@ jobs:
            - dist
   deploy:
     docker:
-      - image: circleci/builder-base:1.1
+      - image: circleci/node:10.9
     working_directory: ~/repo
     steps:
       - checkout
-      - run: apt update
-      - run: apt install -y --force-yes git
       - run: git checkout master
       - attach_workspace:
           at: /tmp/workspace
