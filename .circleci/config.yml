@@ -36,7 +36,7 @@ jobs:
       # Run build
       - run: yarn run build
       - persist_to_wokrspace
-        root: /tmp/dir
+        root: /tmp/workspace
         paths:
          - dist
   deploy:
@@ -45,8 +45,10 @@ jobs:
     docker:
       - image: circleci/build-base:1.1
     steps:
-      
-
+      - run: git checkout master
+      - attach_workspace
+          at: /tmp/workspace
+      - run: cp /tmp/workspace/dist ./
 
 workflows:
   version: 2
