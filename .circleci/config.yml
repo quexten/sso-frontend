@@ -31,7 +31,7 @@ jobs:
       - image: circleci/builder-base:1.1
     steps:
       - run: apt update
-      - run: apt install git
+      - run: apt install -y --force-yes git
       - run: git checkout master
       - attach_workspace:
           at: /tmp/workspace
