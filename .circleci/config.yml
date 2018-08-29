@@ -38,12 +38,7 @@ jobs:
       - run: git config --global user.name CircleCI
       - run: git fetch --all
       - run: git reset --hard origin/master
-      - run: cp -R ./.git ../.git
-      - run: cd ..
-      - run: rm -rf ./repo
-      - run: cp -R /tmp/workspace/dist ./repo
-      - run: cp -R /tmp/workspace/.circleci ./repo
-      - run: cd ./repo
+      - run: cp -R ./.git ../.git && cd .. && rm -rf ./repo && cp -R /tmp/workspace/dist ./repo && cp -R /tmp/workspace/.circleci ./repo && cd ./repo
       - run: cp -R ../.git ./.git
       - run: git add .
       - run: return 1
