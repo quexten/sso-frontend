@@ -30,6 +30,7 @@ jobs:
     docker:
       - image: circleci/builder-base:1.1
     steps:
+      - run: apt install git
       - run: git checkout master
       - attach_workspace:
           at: /tmp/workspace
