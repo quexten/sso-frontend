@@ -40,9 +40,8 @@ jobs:
       - run: cp -R ./.git ../.git
       - run: cd ..
       - run: rm -rf ./repo
-      - run: mkdir ./repo
+      - run: cp -R /tmp/workspace/dist ./repo
       - run: cd ./repo
-      - run: cp -R /tmp/workspace/dist ./
       - run: cp -R ../.git ./.git
       - run: git add .
       - run: git commit -m "Add dist files"
