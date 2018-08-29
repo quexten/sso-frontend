@@ -41,7 +41,6 @@ jobs:
       - run: cp -R ./.git ../.git && cd .. && rm -rf ./repo && cp -R /tmp/workspace/dist ./repo && cp -R /tmp/workspace/.circleci ./repo && cd ./repo
       - run: cp -R ../.git ./.git
       - run: git add .
-      - run: return 1
       - run: git commit -m "Add dist files"
       - run: git push -q https://quexten:${GITHUB_TOKEN}@github.com/quexten/sso-frontend.git master
 workflows:
