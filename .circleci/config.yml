@@ -35,10 +35,10 @@ jobs:
         
       # Run build
       - run: yarn run build
-      - persist_to_wokrspace
-        root: /tmp/workspace
-        paths:
-         - dist
+      - persist_to_workspace
+          root: /tmp/workspace
+          paths:
+           - dist
   deploy:
     requires:
       - build
