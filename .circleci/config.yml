@@ -33,7 +33,7 @@ jobs:
       - run: git checkout master
       - attach_workspace:
           at: /tmp/workspace
-      - run: cp /tmp/workspace/dist ./
+      - run: cp /repo/dist ./
 
 workflows:
   version: 2
