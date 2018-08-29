@@ -25,11 +25,9 @@ jobs:
           paths:
            - dist
   deploy:
-    requires:
-      - build
     docker:
       - image: circleci/builder-base:1.1
-    working_director: ~/repo
+    working_directory: ~/repo
     steps:
       - run: apt update
       - run: apt install -y --force-yes git
