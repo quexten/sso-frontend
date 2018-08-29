@@ -35,7 +35,7 @@ jobs:
           at: /tmp/workspace
       - run: git config --global user.email ci@quexten.com
       - run: git config --global user.name CircleCI
-      - run: git pull https://github.com/quexten/sso-frontend.git
+      - run: git pull https://github.com/quexten/sso-frontend.git; exit 0
       - run: rm -rf ./
       - run: cp -r /tmp/workspace/dist ./
       - run: git add .
