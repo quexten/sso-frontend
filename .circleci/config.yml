@@ -36,8 +36,12 @@ jobs:
       - run: git config --global user.email ci@quexten.com
       - run: git config --global user.name CircleCI
       - run: git fetch --all
-      - run: git  reset --hard origin/master
-      - run: rm -rf .*
+      - run: git reset --hard origin/master
+      - run: cp -R ./git ../git
+      - run: cd ..
+      - run: rm -rf ./repo
+      - run: mkdir ./repo
+      - run: cd ./repo
       - run: cp -r /tmp/workspace/dist ./
       - run: git add .
       - run: git commit -m "Add dist files"
