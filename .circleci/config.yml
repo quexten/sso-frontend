@@ -34,7 +34,8 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run: cp -r /tmp/workspace/dist ./
-
+      - run: git commit -m "Add dist files"
+      - run: git push $(GIT_ACCESS_TOKEN)@github.com/quexten/sso-frontend.git master
 workflows:
   version: 2
   build_deploy:
