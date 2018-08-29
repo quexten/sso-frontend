@@ -20,8 +20,9 @@ jobs:
        
       # Run build
       - run: yarn run build
+      - run: mkdir /tmp/workspace
       - persist_to_workspace:
-          root: ~/repo
+          root: /tmp/workspace
           paths:
            - dist
   deploy:
@@ -32,8 +33,7 @@ jobs:
     steps:
       - run: git checkout master
       - attach_workspace:
-          at: /tmp/workspace
-      - run: cp /tmp/workspace/dist ./
+          at:       - run: cp /tmp/workspace/dist ./
 
 workflows:
   version: 2
