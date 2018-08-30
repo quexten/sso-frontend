@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let apiEndpoint = 'https://api.sso.quexten.com/api/v1/users'
+let apiEndpoint = `${process.env.API_ENDPOINT}/api/v1/`
 let api = axios.create({
   baseURL: apiEndpoint
 })
