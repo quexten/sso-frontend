@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-let apiEndpoint = `${process.env.API_ENDPOINT}/api/v1/`
+let apiEndpoint = process.env.API_ENDPOINT
 let api = axios.create({
-  baseURL: apiEndpoint
+  baseURL: apiEndpoint + '/api/v1/'
 })
 
 export default {
