@@ -13,19 +13,19 @@
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="google" @click.native="signInWithGoogle(`${process.env.APP_ENDPOINT}%23/login/primarySignedIn`)">
+    <v-btn block class="white--text" color="google" @click.native="signInWithGoogle(apiEndpoint)">
       <img class="btnimggoogle" height="44" width="44" decoding="async" alt="Quexten" src="../assets/btn_google.svg">
       Sign In With Google
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="discord" @click.native="signInWithDiscord(`${process.env.APP_ENDPOINT}%23/login/primarySignedIn`)">
+    <v-btn block class="white--text" color="discord" @click.native="signInWithDiscord(apiEndpoint)">
       <img class="btnimgdiscord" height="40" width="36" decoding="async" alt="Quexten" src="../assets/btn_discord.svg">
       Sign In With Discord
     </v-btn>
   </v-card-actions>
   <v-card-actions>
-    <v-btn block class="white--text" color="steam" @click.native="signInWithSteam(`${process.env.APP_ENDPOINT}%23/login/primarySignedIn`)">
+    <v-btn block class="white--text" color="steam" @click.native="signInWithSteam(apiEndpoint)">
       <div style="clear: left">
         <img class="btnimgsteam" height="28" width="44" decoding="async" alt="Quexten" src="../assets/btn_steam.svg">
 
@@ -87,6 +87,7 @@ a {
   export default {
     data () {
       return {
+        apiEndpoint: '',
         alert: true,
         username: '',
         email: '',
@@ -127,6 +128,7 @@ a {
     },
     created: function () {
       this.$vuetify.theme.titlebar = this.$vuetify.theme.primary
+      this.apiEndpoint = `${process.env.APP_ENDPOINT}%23/login/primarySignedIn`
     }
   }
 </script>
