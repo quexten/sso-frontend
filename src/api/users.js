@@ -2,7 +2,7 @@ import axios from 'axios'
 
 let apiEndpoint = process.env.API_ENDPOINT
 let api = axios.create({
-  baseURL: apiEndpoint + '/api/v1/'
+  baseURL: apiEndpoint + 'api/v1/'
 })
 
 export default {

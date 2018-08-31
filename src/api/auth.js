@@ -2,7 +2,7 @@ import axios from 'axios'
 
 let apiEndpoint = process.env.API_ENDPOINT
 let api = axios.create({
-  baseURL: apiEndpoint + 'auth'
+  baseURL: apiEndpoint + 'auth/'
 })
 
 export default {
@@ -14,15 +14,15 @@ export default {
     }).data,
     // Steam
     signInWithSteam: redirectUrl => {
-      location.href = apiEndpoint + 'steam?redirect=' + redirectUrl
+      location.href = apiEndpoint + 'auth/steam?redirect=' + redirectUrl
     },
     // Google
     signInWithGoogle: redirectUrl => {
-      location.href = apiEndpoint + 'google?redirect=' + redirectUrl
+      location.href = apiEndpoint + 'auth/google?redirect=' + redirectUrl
     },
     // Discord
     signInWithDiscord: redirectUrl => {
-      location.href = apiEndpoint + 'discord?redirect=' + redirectUrl
+      location.href = apiEndpoint + 'auth/discord?redirect=' + redirectUrl
     },
     exchangeTokens: async (primaryAuthToken, secondaryAuthToken) => {
       return (await api.post('/exchange', {
