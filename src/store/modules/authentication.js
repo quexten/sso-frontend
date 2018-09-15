@@ -76,6 +76,13 @@ const actions = {
     let userId = decodedToken.data.userId
     let user = await userApi.getUser(userId, sessionToken)
     commit('setUser', user)
+  },
+  addPrimaryAuthenticator: async ({ commit, state }, token) => {
+    commit('setPrimaryAuthToken', null)
+    let sessionToken = state.tokens.sessionToken
+    await userApi.addPrimaryAuthenticator(state.user._id, sessionToken, token)
+    let user = await userApi.getUser(state.user._id, sessionToken)
+    commit('setUser', user)
   }
 }
 

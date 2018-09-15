@@ -21,5 +21,14 @@ export default {
     headers: {
       'Session-Token': token
     }
-  })).data
+  })).data,
+  addPrimaryAuthenticator: async (userId, sessionToken, primaryToken) => {
+    await api.post(`/${userId}/authenticators/primary/new`, {
+      primaryAuthenticationToken: primaryToken
+    }, {
+      headers: {
+        'Session-Token': sessionToken
+      }
+    })
+  }
 }

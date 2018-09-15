@@ -12,7 +12,7 @@
       >
         <v-list>
           <v-list-tile
-            @click="screen = 'profile'"
+            @click="$router.push('profile')"
           >
             <v-list-tile-action>
               <v-icon>account_circle</v-icon>
@@ -27,7 +27,7 @@
               <v-list-tile-title>Security</v-list-tile-title>
             </v-list-tile>
             <v-list-tile
-              @click="screen = 'signin'"
+              @click="$router.push('signin')"
             >
               <v-list-tile-title>Sign in</v-list-tile-title>
               <v-list-tile-action>
@@ -35,7 +35,7 @@
               </v-list-tile-action>
             </v-list-tile>
             <v-list-tile
-              @click="screen = 'twofactor'"
+              @click="$router.push('twofactor')"
             >
               <v-list-tile-title>2-Factor</v-list-tile-title>
               <v-list-tile-action>
@@ -43,7 +43,7 @@
               </v-list-tile-action>
             </v-list-tile>
             <v-list-tile
-              @click="screen = 'audit'"
+              @click="$router.push('audit')"
             >
               <v-list-tile-title>Audit</v-list-tile-title>
               <v-list-tile-action>
@@ -53,7 +53,7 @@
 
           </v-list-group>
           <v-list-tile
-            @click="screen = 'data'"
+            @click="$router.push('data')"
           >
             <v-list-tile-action>
               <v-icon>assessment</v-icon>
@@ -69,6 +69,7 @@
       <profile v-if="screen == 'profile'"></profile>
       <primary-factor v-if="screen == 'signin'"></primary-factor>
       <audit v-if="screen == 'audit'"></audit>
+      <data-view v-if="screen == 'data'"></data-view>
     </v-container>
   </v-layout>
 </template>
@@ -78,25 +79,31 @@
     import PrimaryFactor from '@/components/PrimaryFactor'
     import Profile from '@/components/Profile'
     import Audit from '@/components/Audit'
+    import DataView from '@/components/DataView'
 
     export default {
       name: 'Account',
       data () {
         return {
-          drawer: true,
-          screen: 'profile'
+          drawer: true
         }
       },
       components: {
         SecondFactor,
         PrimaryFactor,
         Profile,
-        Audit
+        Audit,
+        DataView
       },
       created: function () {
         this.$vuetify.theme.titlebar = this.$vuetify.theme.primary
       },
       computed: {
+        screen: {
+          get: function () {
+            return this.$route.params.page
+          }
+        },
         iconsOnly: {
           get: function () {
             switch (this.$vuetify.breakpoint.name) {

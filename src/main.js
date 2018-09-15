@@ -14,7 +14,9 @@ import JWTWrapper from './api/JWTWrapper'
 import authentication from './store/modules/authentication'
 import app from './store/modules/app'
 import createPersistedState from 'vuex-persistedstate'
+import TreeView from 'vue-json-tree-view'
 
+Vue.use(TreeView)
 Vue.use(VueSVGCustomIcon, { basePath: '/assets' })
 Vue.use(Vuetify, {
   theme: {

@@ -1,5 +1,5 @@
 const state = {
-  redirect: '/account'
+  redirect: '/account/profile'
 }
 
 // getters
@@ -13,7 +13,7 @@ const mutations = {
     state.redirect = redirectUrl
   },
   removeRedirect (state) {
-    state.redirect = '/account'
+    state.redirect = '/account/profile'
   }
 }
 

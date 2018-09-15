@@ -12,16 +12,15 @@
         <v-list-tile ripple v-else :key="item.title" avatar @click="selectedItem = item; viewerOpen = true" class="elevation-5 my-3">
           <v-icon class="event-icon mr-2">{{icons[item.type]}}</v-icon>
           <v-list-tile-content>
-            <v-list-tile-title v-if="!smallLayout">{{names[item.type]}} ({{new Date(Date.parse(item.time)).toLocaleTimeString('en-us', {hour: '2-digit', minute: '2-digit'})}})</v-list-tile-title>
-            Aachen - Germany
-          </v-list-tile-content>
+            <v-list-tile-title>{{names[item.type]}} ({{new Date(Date.parse(item.time)).toLocaleTimeString('en-us', {hour: '2-digit', minute: '2-digit'})}})</v-list-tile-title>
+            </v-list-tile-content>
         </v-list-tile>
       </template>
     </v-list>
     <v-pagination
       v-model="page"
       :length="Math.ceil(items.length / 5)"
-      :total-visible="7"
+      :total-visible="3"
       v-if="!smallLayout"
     ></v-pagination>
     <v-btn color="primary" v-if="smallLayout" :disabled="page == 1" @click="page --">Previous</v-btn>
@@ -72,8 +71,8 @@
           ],
           names: {
             'com.quexten.sso.createUser': 'Create User',
-            'com.quexten.sso.signin': 'Login',
-            'com.quexten.sso.signout': 'Logout',
+            'com.quexten.sso.signIn': 'Login',
+            'com.quexten.sso.signOut': 'Logout',
             'com.quexten.sso.addPrimaryAuthenticator': 'Add Primary Authenticator',
             'com.quexten.sso.remove-primary-authenticator': 'Remove Primary Authenticator',
             'com.quexten.sso.add-secondary-authenticator': 'Add Secondary Authenticator',
@@ -81,8 +80,8 @@
           },
           icons: {
             'com.quexten.sso.createUser': 'person_add',
-            'com.quexten.sso.signin': 'add_to_queue',
-            'com.quexten.sso.signout': 'remove_from_queue',
+            'com.quexten.sso.signIn': 'add_to_queue',
+            'com.quexten.sso.signOut': 'remove_from_queue',
             'com.quexten.sso.addPrimaryAuthenticator': 'security',
             'com.quexten.sso.remove-primary-authenticator': 'security',
             'com.quexten.sso.add-secondary-authenticator': 'fingerprint',

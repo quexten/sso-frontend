@@ -4,7 +4,7 @@
       <v-divider></v-divider>
       <h4 class="grey--text">Sign in options</h4>
       <v-divider></v-divider>
-    </v-card-title
+    </v-card-title>
     <v-card-text>
       <v-list subheader>
         <v-list-tile ripple class="elevation-5 my-3" v-for="item in items" :key="item.title" avatar @click="">
@@ -33,14 +33,23 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-menu bottom offset-y>
-        <v-btn disabled slot="activator" color="primary">
+        <v-btn slot="activator" color="primary">
           Add
         </v-btn>
         <v-list>
-          <v-list-tile ripple v-for="(item, i) in options" :key="i" @click="">
-            <v-avatar size="30" tile>
-              <img :src="item.typeAvatar">
-            </v-avatar>
+          <v-list-tile ripple v-for="(item, i) in options" :key="i" @click="signIn(item.title)">
+            <v-list-tile-avatar v-if="item.title==='Steam'">
+              <img src="../assets/btn_steam_dark.svg">
+            </v-list-tile-avatar>
+            <v-list-tile-avatar v-if="item.title==='Discord'">
+              <img src="../assets/btn_discord_dark.svg">
+            </v-list-tile-avatar>
+            <v-list-tile-avatar v-if="item.title==='Google'">
+              <img src="../assets/btn_google.svg">
+            </v-list-tile-avatar>
+            <v-list-tile-avatar v-if="item.title==='Mailgun'">
+              <v-icon >mail_outline</v-icon>
+            </v-list-tile-avatar>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -56,11 +65,29 @@
     data () {
       return {
         options: [
-          { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' }
+          { active: true, title: 'Mailgun' },
+          { active: true, title: 'Google' },
+          { active: true, title: 'Steam' },
+          { active: true, title: 'Discord' }
         ],
-        items: [
-          { active: true, title: 'Email', avatar: 'https://image.flaticon.com/icons/svg/126/126516.svg' }
-        ]
+        items: []
+      }
+    },
+    methods: {
+      signIn: function (title) {
+        switch (title) {
+          case 'Mailgun':
+            break
+          case 'Google':
+            this.signInWithGoogle('http://localhost:1024/%23/addPrimaryAuthenticator')
+            break
+          case 'Discord':
+            this.signInWithDiscord('http://localhost:1024/%23/addPrimaryAuthenticator')
+            break
+          case 'Steam':
+            this.signInWithSteam('http://localhost:1024/%23/addPrimaryAuthenticator')
+            break
+        }
       }
     },
     created: function () {
