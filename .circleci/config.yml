@@ -17,7 +17,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-       
+
       # Run build
       - run: yarn run build
       - persist_to_workspace:
@@ -25,24 +25,6 @@ jobs:
           paths:
            - dist
            - .circleci
-  deploy:
-    docker:
-      - image: circleci/node:10.9
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run: git checkout master
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: git config --global user.email ci@quexten.com
-      - run: git config --global user.name CircleCI
-      - run: git fetch --all
-      - run: git reset --hard origin/master
-      - run: cp -R ./.git ../.git && cp CNAME ../CNAME && cd .. && rm -rf ./repo && cp -R /tmp/workspace/dist ./repo && cp -R /tmp/workspace/.circleci ./repo && cd ./repo
-      - run: cp -R ../.git ./.git && cp ../CNAME ./CNAME
-      - run: git add .
-      - run: git commit -m "Add dist files"
-      - run: git push -q https://quexten:${GITHUB_TOKEN}@github.com/quexten/sso-frontend.git master
 workflows:
   version: 2
   build_deploy:
@@ -50,14 +32,14 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: master 
+              ignore: master
       - deploy:
          requires:
           - build
          filters:
            branches:
              only: release
-    
-      
+
+
 
 
