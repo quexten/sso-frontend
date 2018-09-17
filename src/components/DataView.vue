@@ -40,7 +40,7 @@ a {
 }
 </style>
 <script>
-  import { Scrolly, ScrollyViewport, ScrollyBar } from 'vue-scrolly';
+  import { Scrolly, ScrollyViewport, ScrollyBar } from 'vue-scrolly'
 
   export default {
     components: {

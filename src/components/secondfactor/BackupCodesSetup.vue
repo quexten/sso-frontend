@@ -34,7 +34,7 @@
       },
       methods: {
         downloadCodes: (codes) => {
-          window.open(URL.createObjectURL(new Blob([codes.join('\n')], {type: 'application/text'})))
+          window.open(URL.createObjectURL(new Blob([codes.join('\n')], { type: 'application/text' })))
         }
       }
     }
