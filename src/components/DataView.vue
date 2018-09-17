@@ -40,14 +40,7 @@ a {
 }
 </style>
 <script>
-  import { Scrolly, ScrollyViewport, ScrollyBar } from 'vue-scrolly'
-
   export default {
-    components: {
-      Scrolly,
-      ScrollyViewport,
-      ScrollyBar
-    },
     data () {
       return {
         avatar: '',
