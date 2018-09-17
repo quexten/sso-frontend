@@ -6222,7 +6222,7 @@ vue-hot-reload-api@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
 
-vue-json-tree-view@^2.1.4:
+vue-json-tree-view@2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/vue-json-tree-view/-/vue-json-tree-view-2.1.4.tgz#b6f8ae2ba2eec4eec5b6f53b90fa187054cad79b"
   dependencies:
@@ -6336,7 +6336,7 @@ webpack-bundle-analyzer@2.13.1:
     opener "^1.4.3"
     ws "^4.0.0"
 
-webpack-cli@^3.1.0:
+webpack-cli@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.1.0.tgz#d71a83687dcfeb758fdceeb0fe042f96bcf62994"
   dependencies:
@@ -6362,7 +6362,7 @@ webpack-dev-middleware@1.12.2:
     range-parser "^1.0.3"
     time-stamp "^2.0.0"
 
-webpack-dev-server@^2.11.3:
+webpack-dev-server@2.11.3:
   version "2.11.3"
   resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.11.3.tgz#3fd48a402164a6569d94d3d17f131432631b4873"
   dependencies:
