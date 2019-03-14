@@ -26,7 +26,7 @@
     "vuex-persistedstate": "2.5.4"
   },
   "devDependencies": {
-    "autoprefixer": "9.1.5",
+    "autoprefixer": "9.5.0",
     "babel-core": "6.26.3",
     "babel-eslint": "9.0.0",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
