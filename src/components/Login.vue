@@ -105,7 +105,7 @@ a {
         }
       },
       setCookie: function (key, value) {
-        this.$cookie.set(key, value, {expires: '1M', domain: 'quexten.com'})
+        this.$cookie.set(key, value, { expires: '1M', domain: 'quexten.com' })
       },
       update: function (username, oldPassword, newPassword) {
         var self = this
