@@ -73,7 +73,7 @@ const actions = {
     commit('setSessionToken', sessionToken)
     commit('setPrimaryAuthToken', null)
     let decodedToken = jwtWrapper.methods.decode(sessionToken)
-    let userId = decodedToken.data.userId
+    let userId = decodedToken.userId
     let user = await userApi.getUser(userId, sessionToken)
     commit('setUser', user)
   },

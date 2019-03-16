@@ -26,16 +26,19 @@ a {
 <script>
   export default {
     created: function () {
-      this.$store.dispatch('exchangeTokens').then(() => {
-        let redirect = this.$store.getters.redirect
-        this.$store.commit('removeRedirect')
+      console.log(this.$store.getters.parsedPrimaryAuthToken)
+      if (this.$store.getters.parsedPrimaryAuthToken != null) {
+        this.$store.dispatch('exchangeTokens').then(() => {
+          let redirect = this.$store.getters.redirect
+          this.$store.commit('removeRedirect')
 
-        if (redirect.substring(0, 1) === `/`) {
-          this.$router.push(redirect)
-        } else {
-          location.href = redirect
-        }
-      })
+          if (redirect.substring(0, 1) === `/`) {
+            this.$router.push(redirect)
+          } else {
+            location.href = redirect
+          }
+        })
+      }
     }
   }
 </script>

@@ -20,7 +20,7 @@
 .profile {
   position: absolute;
   top: 70px;
-  left: 100px;
+  left: 160px;
   right: 15px;
 }
 
