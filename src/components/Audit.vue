@@ -6,7 +6,7 @@
       <v-divider></v-divider>
     </v-card-actions>
     <v-list two-line>
-      <template ripple v-for="(item, index) in items.slice((page - 1) / 5, (page -1) / 5 + 5)">
+      <template ripple v-for="(item, index) in items.slice(Math.floor((page-1)*5), Math.floor((page-1)*5)+5)">
         <v-subheader v-if="item.header" :key="item.header">{{ item.header }}</v-subheader>
         <v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider>
         <v-list-tile ripple v-else :key="item.title" avatar @click="selectedItem = item; viewerOpen = true" class="elevation-5 my-3">
