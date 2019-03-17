@@ -103,7 +103,7 @@
           }
         },
         contentStyle () {
-          let left = this.$vuetify.breakpoint.name === 'xs' ? '80px' : '150px'
+          let left = this.$vuetify.breakpoint.name === 'xs' ? '80px' : '160px'
           return {
             position: 'absolute',
             top: '70px',

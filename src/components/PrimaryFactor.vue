@@ -79,13 +79,13 @@
           case 'Mailgun':
             break
           case 'Google':
-            this.signInWithGoogle('http://localhost:1024/%23/addPrimaryAuthenticator')
+            this.signInWithGoogle('http://quexten.pw:1024/%23/addPrimaryAuthenticator')
             break
           case 'Discord':
-            this.signInWithDiscord('http://localhost:1024/%23/addPrimaryAuthenticator')
+            this.signInWithDiscord('http://quexten.pw:1024/%23/addPrimaryAuthenticator')
             break
           case 'Steam':
-            this.signInWithSteam('http://localhost:1024/%23/addPrimaryAuthenticator')
+            this.signInWithSteam('http://quexten.pw:1024/%23/addPrimaryAuthenticator')
             break
         }
       }
